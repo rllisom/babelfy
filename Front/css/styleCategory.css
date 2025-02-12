@@ -4,15 +4,14 @@
     margin: 0;
     padding: 0;
 }
-
+ 
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #121212;
     color: #fff;
     width: 100%;
 }
-
-/* HEADER */
+ 
 header {
     position: fixed;
     top: 0;
@@ -23,7 +22,7 @@ header {
     padding: 15px 0;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 }
-
+ 
 header .contTitle {
     display: flex;
     justify-content: space-between;
@@ -32,38 +31,80 @@ header .contTitle {
     margin: 0 auto;
     padding: 0 20px;
 }
-
+ 
 header .contTitle h3 {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 2rem;
     letter-spacing: 2px;
 }
-
+ 
 header .contTitle img {
     width: 50px;
     height: auto;
 }
+ 
+.content{
+    width: 100%;
+    padding-top: 80px;
+    display: flex;
+}
 
+aside{
+    flex: 1 1 20%;
+    min-height: 100vh;
+    top: 80px;
+    left: 0;
+    background-color: rgba(25,25, 25,0.9);
+    padding: 20px;
+    transition: all 0.3s ease;
+    overflow-y: auto;
+}
+
+aside ul{
+    list-style: none;
+    padding: 0;
+}
+
+aside ul li{
+    margin: 15px 0;
+}
+
+aside ul li a{
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+}
+
+aside ul li a:hover{
+    background-color: #1db954;
+}
 /* MAIN */
 main {
-    width: 100%;
+    margin-left: 20px;
+    padding: 20px;
+    flex: 1 1 80%;
     min-height: 100vh;
-    padding-top: 80px; 
+    padding-top: 80px;
     padding-bottom: 50px;
     background-color: #181818;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-
+ 
 main h1{
+    margin-top: -20px;
     width: 90%;
     border-bottom: #fff 1px solid;
     text-align: left;
     padding-left: 5px;
 }
-
-
+ 
+ 
 main section {
     display: flex;
     flex-wrap: wrap;
@@ -72,8 +113,8 @@ main section {
     max-width: 900px;
     padding: 20px;
 }
-
-
+ 
+ 
 .category {
     position: relative;
     width: 180px;
@@ -84,16 +125,14 @@ main section {
     text-align: center;
     background-color: #242424;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    overflow: hidden;
+    margin: 5px;
 }
-
 
 .category:hover {
-    transform: scale(1.05);
+    /* transform: scale(1.05); */
     box-shadow: 0px 6px 15px rgba(29, 185, 84, 0.5);
 }
-
-
+ 
 .category h3 {
     position: absolute;
     top: 50%;
@@ -103,23 +142,71 @@ main section {
     font-weight: bold;
     color: #fff;
 }
-
-
-.category a {
+ 
+.category button {
     position: absolute;
     right: 10px;
     bottom: 10px;
     text-decoration: none;
+    background-color:#181818;
     color: #1db954;
     font-size: 1.5rem;
     transition: color 0.3s ease;
 }
 
+/* SUBMENÚ */
+.category .submenu {
+    display: none;
+    position: absolute;
+    top: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 180px;
+    background: rgba(29, 185, 84, 0.9);
+    border-radius: 8px;
+    padding: 8px 0;
+    list-style-type: none;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    transition: all 0.3s ease-in-out;
+}
+
+.category .submenu.active {
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid rgba(29, 185, 84, 0.9);
+}
+
+.category .submenu li {
+    padding: 10px;
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #fff;
+  
+}
+
+.category .submenu li:hover {
+    background-color: #05702a;
+    transform: scale(1.05);
+}
+
+.category .submenu li a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+}
+
 .category a:hover {
     color: #1ed760;
 }
-
-
 
 .newCategory {
     width: 60px;
@@ -134,19 +221,16 @@ main section {
     cursor: pointer;
 }
 
-
 .newCategory:hover {
     transform: scale(1.15);
     box-shadow: 0px 8px 20px rgba(29, 185, 84, 0.5);
 }
-
 
 .newCategory a {
     text-decoration: none;
     color: #fff;
     font-size: 2rem;
 }
-
 
 .newCategoryContainer {
     display: flex;
