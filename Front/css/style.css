@@ -106,15 +106,16 @@ main {
     background: #1db954;
     border-radius: 5px;
     padding: 5px 0;
-    width: 160px;
+    width: 0px;
     opacity: 0;
-    transition: opacity 0.5s;
+    transition: opacity 1s;
     flex-direction: column;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 .lineSong li:hover > ul {
     opacity: 1;
+    width: 160px;
 }
 
 .lineSong li > ul > li {
