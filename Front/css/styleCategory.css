@@ -152,6 +152,7 @@ main section {
     color: #1db954;
     font-size: 1.5rem;
     transition: color 0.3s ease;
+    cursor: pointer;
 }
 
 /* SUBMENÚ */
@@ -208,6 +209,37 @@ main section {
     color: #1ed760;
 }
 
+.box {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    height: 100%;
+    background-color: #fff;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    align-items: stretch;
+    align-content: space-around;
+}
+.box h4{
+    color: #121212;
+}
+.botones{
+    display: flex;
+    margin: 5px;
+    justify-content: space-around;  
+}
+.botones button{
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #1db954;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    width: 100px;    
+}
 .newCategory {
     width: 60px;
     height: 60px;

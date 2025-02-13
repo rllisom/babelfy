@@ -6,3 +6,6 @@ function abrirMenu(b){
         a.style.display = "block";
     }
 }
+// function openPopUp(){
+//     document.getElementById("modalConfirmacion").style.display = "none";
+// }
