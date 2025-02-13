@@ -6,6 +6,11 @@ function abrirMenu(b){
         a.style.display = "block";
     }
 }
-// function openPopUp(){
-//     document.getElementById("modalConfirmacion").style.display = "none";
-// }
+ function mensajeConfirmacion(){
+    var a = document.getElementById("open_PopUp");
+    if(a.style.display == "flex"){
+        a.style.display = "none";
+    }else{
+        a.style.display = "flex";
+    }
+ }
