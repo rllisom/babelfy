@@ -1,34 +1,27 @@
 package com.babel.babelfy.model;
 
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.util.List;
+
+@Entity
+@NoArgsConstructor
+@Data
 public class Category {
 
     @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
 
-    public Category(int id, String name) {
-        this.id = id;
+    @OneToMany(mappedBy = "category")
+    private List<Song> songs;
+
+    public Category(String name, List<Song> songs) {
         this.name = name;
-    }
-
-    public Category() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        this.songs = songs;
     }
 }
