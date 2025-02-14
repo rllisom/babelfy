@@ -1,5 +1,6 @@
 package com.babel.babelfy.controller;
 
+import com.babel.babelfy.dto.CategoryDTO;
 import com.babel.babelfy.model.Category;
 import com.babel.babelfy.service.CategoryService;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,7 @@ public class CategoryController {
     private final CategoryService service;
 
     @GetMapping("/show")
-    public Category showCategory(@RequestBody long id){
+    public CategoryDTO showCategory(@RequestBody long id){
         return service.showCategory(id);
     }
 
