@@ -15,9 +15,9 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @PutMapping("/update")
-    public CategoryDTO changeCategory(@PathVariable long id, @PathVariable String name){
+    public CategoryDTO put(@PathVariable long id, @PathVariable String name){
         
-        return categoryService.modifyCategory(id,name);
+        return categoryService.put(id,name);
     }
 
 

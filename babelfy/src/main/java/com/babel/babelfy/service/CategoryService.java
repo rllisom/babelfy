@@ -39,7 +39,7 @@ public class CategoryService {
     }
 
 
-    public CategoryDTO modifyCategory(long id, String name){
+    public CategoryDTO put(long id, String name){
         Category c = categoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
         c.setName(name);
