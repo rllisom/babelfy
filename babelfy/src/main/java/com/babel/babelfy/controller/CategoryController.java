@@ -1,5 +1,6 @@
 package com.babel.babelfy.controller;
 
+import com.babel.babelfy.dto.CategoryDTO;
 import com.babel.babelfy.model.Category;
 import com.babel.babelfy.service.CategoryService;
 import lombok.RequiredArgsConstructor;
@@ -13,13 +14,10 @@ public class CategoryController {
 
     private final CategoryService service;
 
-    @PutMapping("/changeCategory")
-    public String putCategory(@RequestBody Category c, String name){
-        if(service.modifyCategory(c,name)!=null){
-            return "Cambio realizado correctamente";
-        }else{
-            return "Cambio fallido" ;
-        }
+    @PutMapping("/update")
+    public CategoryDTO changeCategory(@RequestParam long id, @RequestParam String name){
+        return service.modifyCategory(id,name);
     }
+
 
 }
