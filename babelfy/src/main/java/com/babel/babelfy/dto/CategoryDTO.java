@@ -9,22 +9,19 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 public class CategoryDTO {
 
-    @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY)
+
     private long id;
-
     private String name;
-    @OneToMany
-    private List<SongDTO> listDTO = new ArrayList<SongDTO>();
+    private List<SongDTO> songsDTO = new ArrayList<SongDTO>();
 
-    public CategoryDTO(String name, List<SongDTO> listDTO) {
+    public CategoryDTO(String name, List<SongDTO> songsDTO) {
         this.name = name;
-        this.listDTO = listDTO;
+        this.songsDTO = songsDTO;
     }
 }

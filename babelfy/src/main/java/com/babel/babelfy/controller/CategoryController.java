@@ -16,6 +16,7 @@ public class CategoryController {
 
     @PutMapping("/update")
     public CategoryDTO changeCategory(@RequestParam long id, @RequestParam String name){
+        
         return service.modifyCategory(id,name);
     }
 
