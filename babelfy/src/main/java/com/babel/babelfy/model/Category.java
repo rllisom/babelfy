@@ -17,7 +17,7 @@ public class Category {
 
     private String name;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany()
     private List<Song> songs;
 
     public Category(String name, List<Song> songs) {

@@ -5,6 +5,7 @@ import com.babel.babelfy.dto.SongDTO;
 import com.babel.babelfy.model.Category;
 import com.babel.babelfy.model.Song;
 import com.babel.babelfy.repository.CategoryRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,7 @@ public class CategoryService {
         return new CategoryDTO( c.getId(),c.getName(),list);
     }
 
-
+    @Transactional
     public CategoryDTO put(long id, String name){
         Category c = categoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));

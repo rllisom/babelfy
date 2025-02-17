@@ -7,16 +7,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/category")
+@RequestMapping("/categories")
 public class CategoryController {
 
     private final CategoryService categoryService;
 
-    @PutMapping("/update")
-    public CategoryDTO put(@PathVariable long id, @PathVariable String name){
-        
+    @PutMapping("/{id}")
+    public CategoryDTO put(@PathVariable long id, @RequestBody Map<String, String> body){
+        String name = body.get("name");
         return categoryService.put(id,name);
     }
 
