@@ -23,7 +23,7 @@ public class CategoryService {
     public CategoryDTO buildDTO (Category c){
         List<SongDTO> list = null;
 
-        if(c.getSongs() != null && !c.getSongs().isEmpty()) {
+        if(!c.getSongs().isEmpty()) {
             list = new ArrayList<SongDTO>();
             for (Song s : c.getSongs()) {
                 list.add(new SongDTO(s.getId(),
