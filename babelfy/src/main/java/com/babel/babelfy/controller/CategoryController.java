@@ -3,6 +3,7 @@ package com.babel.babelfy.controller;
 import com.babel.babelfy.dto.CategoryDTO;
 import com.babel.babelfy.model.Category;
 import com.babel.babelfy.service.CategoryService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class CategoryController {
 
     private final CategoryService categoryService;
+
 
     @GetMapping("/{id}")
     public CategoryDTO getById(@PathVariable long id){

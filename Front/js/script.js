@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', function(){
 
     function getCategory(){
-        const apiUrl = 'http://localhost:9000/categories/{id}';
+        const apiUrl = `http://localhost:9000/categories/1`;
 
         fetch(apiUrl)
             .then(function(response){
@@ -23,21 +23,27 @@ document.addEventListener('DOMContentLoaded', function(){
 
     function renderCategory(category){
 
-
-        if(!category || !category.songs){
+        
+        if(!category){
             document.getElementById('name').innerHTML = 'No se encontró la categoría';
             document.getElementById('lista').innerHTML = '<li>No hay canciones disponibles</li>';
         }else{
-         
             document.getElementById('name').innerText = category.name;
-            const listaElement = document.getElementById('lista');
-            listaElement.innerHTML = ''; 
+            if(!category.songs){
+                document.getElementById('lista').innerHTML = '<li>No hay canciones disponibles</li>';
+            }else{
+                const listaElement = document.getElementById('lista');
+                listaElement.innerHTML = '';
+                category.songs.forEach(song => {
+                    const li = document.createElement('li');
+                    li.innerText = song.name;
+                    listaElement.appendChild(li);
+                });
+             }
+            
+            
 
-            category.songs.forEach(song => {
-                const li = document.createElement('li');
-                li.innerText = song.name;
-                listaElement.appendChild(li);
-            });
+            
         }
     }
 
