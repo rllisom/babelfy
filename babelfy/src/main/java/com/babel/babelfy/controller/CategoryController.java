@@ -15,7 +15,7 @@ public class CategoryController {
     private final CategoryService service;
 
     @GetMapping("/show")
-    public CategoryDTO showCategory(@RequestBody long id){
+    public CategoryDTO showCategory(@RequestParam long id){
         return service.showCategory(id);
     }
 
