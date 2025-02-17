@@ -17,7 +17,7 @@ import java.util.List;
 public class CategoryService {
 
 
-    private final CategoryRepository repo;
+    private final CategoryRepository categoryRepository;
 
 
     public CategoryDTO buildDTO (Category c){
@@ -40,10 +40,10 @@ public class CategoryService {
 
 
     public CategoryDTO modifyCategory(long id, String name){
-        Category c = repo.findById(id)
+        Category c = categoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
         c.setName(name);
-        repo.save(c);
+        categoryRepository.save(c);
         return buildDTO(c);
     }
 

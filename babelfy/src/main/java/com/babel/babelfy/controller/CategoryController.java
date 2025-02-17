@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/category")
 public class CategoryController {
 
-    private final CategoryService service;
+    private final CategoryService categoryService;
 
     @PutMapping("/update")
-    public CategoryDTO changeCategory(@RequestParam long id, @RequestParam String name){
+    public CategoryDTO changeCategory(@PathVariable long id, @PathVariable String name){
         
-        return service.modifyCategory(id,name);
+        return categoryService.modifyCategory(id,name);
     }
 
 
