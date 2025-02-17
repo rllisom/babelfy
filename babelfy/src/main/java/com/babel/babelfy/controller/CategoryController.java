@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/category")
+@RequestMapping("/categories")
 public class CategoryController {
 
-    private final CategoryService service;
+    private final CategoryService categoryService;
 
-    @GetMapping("/show")
-    public CategoryDTO showCategory(@RequestParam long id){
-        return service.showCategory(id);
+    @GetMapping("/{id}")
+    public CategoryDTO getById(@PathVariable long id){
+        return categoryService.getById(id);
     }
 
 }

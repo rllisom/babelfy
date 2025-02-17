@@ -18,7 +18,7 @@ import java.util.Optional;
 public class CategoryService {
 
 
-    private final CategoryRepository repo;
+    private final CategoryRepository categoryRepository;
 
     public CategoryDTO buildDTO (Category c){
         List<SongDTO> list = null;
@@ -39,8 +39,8 @@ public class CategoryService {
     }
 
 
-    public CategoryDTO showCategory(Long id){
-        Category c = repo.findById(id)
+    public CategoryDTO getById(long id){
+        Category c = categoryRepository.findById(id)
                     .orElseThrow(() -> new RuntimeException("No se encuentra la categoría") );
 
         return buildDTO(c);
