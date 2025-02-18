@@ -21,6 +21,26 @@ public class CategoryController {
         String name = body.get("name");
         return categoryService.put(id,name);
     }
+      @GetMapping ("")
+    public List<CategoryDTO> getAll(){
 
+        return  categoryService.getListCategory();
+    }
 
+    @GetMapping ("/{id}")
+    public CategoryDTO getById(@PathVariable long id){
+
+        Category category = categoryService.getCategoryById(id);
+        CategoryDTO categoryDTO = categoryService.buildDTO(category);
+
+        return  categoryDTO;
+    }
+
+    @DeleteMapping("/{id}")
+    public CategoryDTO deleteById (@PathVariable long id){
+        return categoryService.deleteCategory(id);
+    }
 }
+
+
+

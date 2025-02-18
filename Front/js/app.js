@@ -1,29 +1,8 @@
-function abrirMenu(b){
-    var a = document.getElementById("menuDesplegable"+ b);
-    if(a.style.display == "block"){
-        a.style.display = "none";
-    }else{
-        a.style.display = "block";
-    }
-}
- function mensajeConfirmacion(id){
-    var a = document.getElementById("open_PopUp");
-    var button = document.getElementById("eliminar");
-    button.onclick = function() {
-        eliminarCategoria(id);
-    };
-    if(a.style.display == "flex"){
-        a.style.display = "none";
-    }else{
-        a.style.display = "flex";
-    }
- }
- /* Espera a que el documento esté cargado antes de ejecutar el código */
+/* Espera a que el documento esté cargado antes de ejecutar el código */
 document.addEventListener('DOMContentLoaded', function() {
     getCategorias(); 
 });
 
-//GET ALL
 function getCategorias() {
     // URL del endpoint
     const url = 'http://localhost:9000/categories';
@@ -78,10 +57,10 @@ function renderCategory(categories) {
 }
 
  
-    //DELETE
+    
     function eliminarCategoria(id) {
         // Asegúrate de tener la URL correcta para la API
-        const apiUrl = `http://localhost:9000/categories/${id}`;
+        const apiUrl = `https://miapi.com/categorias/${id}`;
     
         fetch(apiUrl, {
             method: 'DELETE',
@@ -97,45 +76,11 @@ function renderCategory(categories) {
         })
         .then(data => {
             alert('Categoría eliminada correctamente');
-            getCategorias();
+            // Aquí podrías actualizar la lista de categorías o hacer otras acciones necesarias
             document.getElementById('open_PopUp').style.display = 'none';  // Ocultamos el pop-up
         })
         .catch(error => {
             alert('Error al eliminar la categoría');
         });
     }
-
-    //PUT
-    function guardarNombre(){
-    let newName = document.getElementById("newName").value;
-    const apiUrl = `http://localhost:9000/categories/${id}`;
-    const message = document.getElementById("message");
-
-    if(!newName.trim()){
-        message.innerHTML = "Por favor, ingrese un nombre";
-        return;
-    }else{
-        fetch(apiUrl, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({name: newName})
-        })
-        .then(response => {
-            if(response.ok){
-                return response.json();
-            }
-            throw new Error('Error al actualizar el nombre');
-        })
-        .then(data => {
-            alert('Categoría actualizada correctamente');
-        })
-        .catch(error => {
-            alert('Error al actualizar el nombre');
-        });
-        
-    }
-
     
-}
