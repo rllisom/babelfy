@@ -1,24 +1,4 @@
-function abrirMenu(b){
-    var a = document.getElementById("menuDesplegable"+ b);
-    if(a.style.display == "block"){
-        a.style.display = "none";
-    }else{
-        a.style.display = "block";
-    }
-}
- function mensajeConfirmacion(id){
-    var a = document.getElementById("open_PopUp");
-    var button = document.getElementById("eliminar");
-    button.onclick = function() {
-        eliminarCategoria(id);
-    };
-    if(a.style.display == "flex"){
-        a.style.display = "none";
-    }else{
-        a.style.display = "flex";
-    }
- }
- /* Espera a que el documento esté cargado antes de ejecutar el código */
+/* Espera a que el documento esté cargado antes de ejecutar el código */
 document.addEventListener('DOMContentLoaded', function() {
     getCategorias(); 
 });

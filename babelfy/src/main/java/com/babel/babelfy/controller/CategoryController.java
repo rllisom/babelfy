@@ -1,34 +1,50 @@
 package com.babel.babelfy.controller;
 
 import com.babel.babelfy.dto.CategoryDTO;
+//import com.babel.babelfy.dto.CreateCategoryRequest;
+//import com.babel.babelfy.dto.CreateCategoryResponse;
 import com.babel.babelfy.model.Category;
 import com.babel.babelfy.service.CategoryService;
+import com.babel.babelfy.service.SongService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@RequestMapping("/category")
+@RequestMapping("/categories")
 @RequiredArgsConstructor
 @RestController
 public class CategoryController {
 
 
-    private final CategoryService service;
+    private final CategoryService categoryService;
 
-    @GetMapping ("/")
-    public List<CategoryDTO> getListCategory_Cont(){
-        return  service.getListCategory_Ser();
+
+    @GetMapping ("")
+    public List<CategoryDTO> getAll(){
+
+        return  categoryService.getListCategory();
     }
 
-    @DeleteMapping("/deleteCat")
-    public CategoryDTO deleteCategory_Cont (@RequestParam long id){
-        return service.deleteCategory(id);
+    @GetMapping ("/{id}")
+    public CategoryDTO getById(@PathVariable long id){
+
+        Category category = categoryService.getCategoryById(id);
+        CategoryDTO categoryDTO = categoryService.buildDTO(category);
+
+        return  categoryDTO;
     }
 
-    @PostMapping ("/addCategory")
-    public Category addNewCategory_Cont(CategoryDTO c){
-       return service.addNewCategory(c);
+    @DeleteMapping("/{id}")
+    public CategoryDTO deleteById (@PathVariable long id){
+        return categoryService.deleteCategory(id);
     }
+
+
+//    @PostMapping ("")
+//    public CreateCategoryResponse create(@RequestBody CreateCategoryRequest c){
+//       return categoryService.create(c);
+//    }
+
 
 
 

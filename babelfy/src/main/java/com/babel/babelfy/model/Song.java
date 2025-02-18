@@ -2,12 +2,14 @@ package com.babel.babelfy.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
 
 @Entity
 @AllArgsConstructor
+@Builder
 @Data
 public class Song {
 

@@ -27,62 +27,18 @@
     
 
         <main>
-            <h1>Categorías</h1>
+            <h1>Categorias</h1>
             <section class="categories">
-                <div class="category">
-                    <h3>Rock</h3>
-                    <button type="button" onclick="abrirMenu(0)"><i class="bi bi-list"></i></button>
-                    <ul id="menuDesplegable0" class="submenu">
-                        <li><a href="showCategory.html">Mostrar información</a></li>
-                        <li><a href="modifyCategory.html">Modificar categoría</a></li>
-                        <li>
-                            <a type="button" href="#" onclick="mensajeConfirmacion()">Eliminar categoría</a>
-                        </li> 
-                    </ul> 
-                    
+                <div  id="categories-container">
+                    <!-- Aquí se inyectarán las categorías dinámicamente desde JavaScript -->
                 </div>
-                <div class="category">
-                    <h3>Pop</h3>
-                    <button type="button" onclick="abrirMenu(1)"><i class="bi bi-list"></i></button>
-                    <ul id="menuDesplegable1" class="submenu">
-                        <li><a href="showCategory.html">Mostrar información</a></li>
-                        <li><a href="modifyCategory.html">Modificar categoría</a></li>
-                        <li>
-                            <a type="button" href="#" onclick="mensajeConfirmacion()">Eliminar categoría</a>
-                        </li> 
-                    </ul> 
-                    
-                </div>
-                <div class="category">
-                    <h3>Jazz</h3>
-                    <button type="button" onclick="abrirMenu(2)"><i class="bi bi-list"></i></button>
-                    <ul id="menuDesplegable2" class="submenu">
-                        <li><a href="showCategory.html">Mostrar información</a></li>
-                        <li><a href="modifyCategory.html">Modificar categoría</a></li>
-                        <li>
-                            <a type="button" href="#" onclick="mensajeConfirmacion()">Eliminar categoría</a>
-                        </li> 
-                    </ul> 
-                    
-                </div>
-                <div class="category">
-                    <h3>Blues</h3>
-                    <button type="button" onclick="abrirMenu(3)"><i class="bi bi-list"></i></button>
-                    <ul id="menuDesplegable3" class="submenu">
-                        <li><a href="showCategory.html">Mostrar información</a></li>
-                        <li><a href="modifyCategory.html">Modificar categoría</a></li>
-                        <li>
-                            <a type="button" href="#" onclick="mensajeConfirmacion()">Eliminar categoría</a>
-                        </li> 
-                    </ul> 
-                </div>
-              
+            </section>
 
             </section>
                         <div class="box" id="open_PopUp">
                             <h4>¿Estás seguro que deseas eliminar la categoría?</h4>
                             <div class="botones">
-                            <button>SI</button>
+                            <button id="eliminar">SI</button>
                             <button type="button" onclick="mensajeConfirmacion()">NO</button>
                             </div>
                         </div>
@@ -91,10 +47,9 @@
                 <div class="newCategory">
                     <a href="newCategory.html"><i class="bi bi-plus-circle"></i></a>
                 </div>
-            </section>
+            </section> 
         </main>
     </div>
     <script src="../js/script.js"></script>
-
 </body>
 </html>

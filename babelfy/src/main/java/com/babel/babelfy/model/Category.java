@@ -3,6 +3,7 @@ package com.babel.babelfy.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Category {
 
     @Id
@@ -22,9 +24,9 @@ public class Category {
     private List <Song> songs;
 
 
-    public Category(String name, List<Song> songs) {
+    public Category(String name) {
         this.name = name;
-        this.songs = songs;
     }
+
 }
 

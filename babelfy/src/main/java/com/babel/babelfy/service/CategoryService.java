@@ -1,86 +1,145 @@
 package com.babel.babelfy.service;
 
 import com.babel.babelfy.dto.CategoryDTO;
+//import com.babel.babelfy.dto.CreateCategoryRequest;
+//import com.babel.babelfy.dto.CreateCategoryResponse;
 import com.babel.babelfy.dto.SongDTO;
 import com.babel.babelfy.model.Category;
 import com.babel.babelfy.model.Song;
 import com.babel.babelfy.repository.CategoryRepository;
+import jakarta.transaction.Transactional;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.ErrorResponseException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
-
-
+@Builder
 @Service
 @RequiredArgsConstructor
 public class CategoryService {
 
-    private final CategoryRepository repo;
+    private final CategoryRepository categoryRepository;
 
     //ALL
-    public List <CategoryDTO> getListCategory_Ser(){
-          List<Category> list = repo.findAll();
-          List<CategoryDTO> dto = new ArrayList <CategoryDTO>();
+    @Transactional
+    public List<CategoryDTO> getListCategory() {
+        List<Category> list = categoryRepository.findAll();
+        List<CategoryDTO> dto = list.stream().map(this::buildDTO).collect(Collectors.toList());
 
-          for(Category c : list){
-              dto.add(buildDTO(c));
-          }
-          return dto;
+        return dto;
+    }
+
+//Listar categorías
+//    public List <CreateCategoryResponse> getAll(){
+//        List <Category> list = categoryRepository.findAll();
+//        List <CreateCategoryResponse> response = list.stream().map(this::buildResponse).collect(Collectors.toList());
+//        return  response;
+//    }
+
+
+    public Category getCategoryById(long idCategory) {
+
+        Optional<Category> category = this.categoryRepository.findById(idCategory);
+
+        if (category.isEmpty()) try {
+            throw new ClassNotFoundException("La categoría " + idCategory + " no existe");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        return category.get();
     }
 
     //DELETE
     public CategoryDTO deleteCategory(long id) {
         Category c;
-        c = repo.findById(id).orElseThrow(() -> new RuntimeException("No existe ese id "));
-        repo.delete(c);
+        c = categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("No existe ese id "));
+        categoryRepository.delete(c);
         return buildDTO(c);
     }
 
-    //ADD
-    public Category addNewCategory(CategoryDTO newCat){
-        repo.save(buildCategory(newCat));
-        return buildCategory(newCat);
-    }
 
+
+//    //ADD
+//    public CreateCategoryResponse create(CreateCategoryRequest newCat){
+//
+//        Category category = new Category(newCat.getName());
+//
+//        Category categorySaved = categoryRepository.save(category);
+//
+//        CreateCategoryResponse categoryResponse = new CreateCategoryResponse(
+//                categorySaved.getId(),
+//                categorySaved.getName(),
+//                categorySaved.getSongs().isEmpty() && categorySaved.getSongs().size() > 0
+//                        ? categorySaved.getSongs().stream().map(song ->SongDTO.SongToSongDTO(song)).toList()
+//                        : null);
+//
+//        return categoryResponse;
+//    }
 
 
     //BUILDER
-    public CategoryDTO buildDTO (Category c){
-        List<SongDTO> list = null;
 
-        if(c.getSongs() != null && !c.getSongs().isEmpty()) {
-            list = new ArrayList<SongDTO>();
-            for (Song s : c.getSongs()) {
-                list.add(new SongDTO(s.getId(),
-                        s.getName(),
-                        s.getDuration(),
-                        s.getArtist(),
-                        s.getAlbum(),
-                        s.getDate(),
-                        c.getId()));
-            }
-        }
-      return new CategoryDTO( c.getId(),c.getName(),list);
-    }
-    public Category buildCategory (CategoryDTO c){
-        List<Song> songs = null;
 
-        if(c.getSongs() != null && !c.getSongs().isEmpty()) {
-            songs = new ArrayList<Song>();
-            for (SongDTO s : c.getSongs()) {
-                songs.add(new Song(s.getId(),
-                        s.getName(),
-                        s.getDuration(),
-                        s.getArtist(),
-                        s.getAlbum(),
-                        s.getDate(),
-                        repo.findById(s.getId_category()).orElse(null)));
-            }
-        }
-        return new Category(c.getId(),c.getName(),songs);
+//    public CreateCategoryResponse buildResponse (Category c){
+//        return CreateCategoryResponse.builder()
+//                .name(c.getName())
+//                .build()
+//                ;
+//    }
+
+    public CategoryDTO buildDTO(Category c) {
+        List<SongDTO> songs = c.getSongs() != null ?
+                c.getSongs().stream().map(this::convertToSongDTO).collect(Collectors.toList())
+                : new ArrayList<>();
+        return CategoryDTO.builder()
+                .id(c.getId())
+                .songs(songs)
+                .name(c.getName())
+                .build();
+
     }
+
+
+    public Category buildCategory(CategoryDTO dto) {
+        List<Song> songs = dto.getSongs() != null ?
+                dto.getSongs().stream().map(this::convertToSong).collect(Collectors.toList())
+                : new ArrayList<>();
+
+        return Category.builder()
+                .songs(songs)
+                .name(dto.getName())
+                .build();
+    }
+    public SongDTO convertToSongDTO(Song song) {
+        return  SongDTO.builder()
+                .date(song.getDate())
+                .id_category(song.getCategory() != null ? song.getCategory().getId() : null)
+                .album(song.getAlbum())
+                .duration(song.getDuration())
+                .artist(song.getArtist())
+                .build();
+
+
+    }
+
+
+    private Song convertToSong(SongDTO songDTO) {
+        return Song.builder()
+                .name(songDTO.getName())
+                .date(songDTO.getDate())
+                .album(songDTO.getAlbum())
+                .artist(songDTO.getArtist())
+                .duration(songDTO.getDuration())
+
+                .build();
+    }
+
+
 
 }
