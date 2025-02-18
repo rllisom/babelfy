@@ -17,7 +17,7 @@ public class SongDTO {
     private String artist;
     private String album;
     private LocalDate date;
-    private int id_category;
+    private long id_category;
 
 
 }
