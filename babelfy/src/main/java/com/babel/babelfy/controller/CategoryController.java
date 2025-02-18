@@ -3,10 +3,11 @@ package com.babel.babelfy.controller;
 import com.babel.babelfy.dto.CategoryDTO;
 import com.babel.babelfy.model.Category;
 import com.babel.babelfy.service.CategoryService;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,6 +22,7 @@ public class CategoryController {
         String name = body.get("name");
         return categoryService.put(id,name);
     }
+
     //GET ALL
       @GetMapping ("")
     public List<CategoryDTO> getAll(){
@@ -28,19 +30,26 @@ public class CategoryController {
         return  categoryService.getListCategory();
     }
 
-    //DELETE
+    //GET BY ID
+    @GetMapping ("/{id}")
+    public CategoryDTO getById(@PathVariable long id){
 
+        Category category = categoryService.getCategoryById(id);
+        CategoryDTO categoryDTO = categoryService.buildDTO(category);
+
+        return  categoryDTO;
+    }
+
+    //DELETE
     @DeleteMapping("/{id}")
     public CategoryDTO deleteById (@PathVariable long id){
         return categoryService.deleteCategory(id);
     }
-    //GET BY ID
-
-    @GetMapping("/{id}")
-    public CategoryDTO getById(@PathVariable long id){
-        return categoryService.getById(id);
+    //POST
+    @PostMapping("")
+    public CategoryDTO add(@RequestBody CategoryDTO dto){
+        return categoryService.add(dto);
     }
-
 }
 
 
