@@ -105,5 +105,13 @@ public class CategoryService {
     }
 
     
+    //GET BY ID
+    @Transactional
+    public CategoryDTO getById(long id){
+        Category c = categoryRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("No se encuentra la categoría") );
 
+        return buildDTO(c);
+
+    }
 }
