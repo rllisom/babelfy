@@ -33,11 +33,7 @@ public class CategoryController {
     //GET BY ID
     @GetMapping ("/{id}")
     public CategoryDTO getById(@PathVariable long id){
-
-        Category category = categoryService.getCategoryById(id);
-        CategoryDTO categoryDTO = categoryService.buildDTO(category);
-
-        return  categoryDTO;
+        return  categoryService.getById(id);
     }
 
     //DELETE

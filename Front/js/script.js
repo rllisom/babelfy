@@ -46,6 +46,11 @@ function getCategorias() {
         });
 }
 
+function showCategory(id) {
+    localStorage.setItem('idCategoria', id);
+    window.location.href = 'showCategory.html';
+}
+
 function renderCategory(categories) {
     var container = document.getElementById('categories-container');
 
@@ -63,8 +68,8 @@ function renderCategory(categories) {
                 <i class="bi bi-list"></i>
             </button>
             <ul id="menuDesplegable${index}" class="submenu">
-                <li><a href="showCategory.html">Mostrar información</a></li>
-                <li><a href="modifyCategory.html">Modificar categoría</a></li>
+                <li><a onclick='showCategory(${category.id})'>Mostrar información</a></li>
+                <li><a href='modifyCategory.html'>Modificar categoría</a></li>
                 <li>
                     <a type="button" href="#" onclick="mensajeConfirmacion(${category.id})">Eliminar categoría</a>
                 </li> 
@@ -144,6 +149,7 @@ function renderCategory(categories) {
 document.addEventListener('DOMContentLoaded', function(){
 
     function getCategory(){
+        id = localStorage.getItem('idCategoria');
         const apiUrl = `http://localhost:9000/categories/${id}`;
 
         fetch(apiUrl)
@@ -190,42 +196,41 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
 
-    //POST
-    function createCategory(){
-        const apiUrl = `http://localhost:9000/categories`;
-        let newName = document.getElementById("newName").value;
-        const message = document.getElementById("message");
-     
-     
-        if(!newName.trim()){
-            message.innerHTML = "Por favor, ingrese un nombre";
-            return;
-        }else{
-            fetch(apiUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({name: newName})
-            })
-            .then(response => {
-                if(response.ok){
-                    return response.json();
-                }
-                throw new Error('Error al crear la categoría');
-            })
-            .then(data => {
-                alert('Categoría creada correctamente');
-            })
-            .catch(error => {
-                alert('Error al crear la categoría');
-            });
-        }
-    }
+   
 
     getCategory();
 
 }); 
 
-
-
+ //POST
+ function createCategory(){
+    const apiUrl = `http://localhost:9000/categories`;
+    let newName = document.getElementById("newName").value;
+    const message = document.getElementById("message");
+ 
+ 
+    if(!newName.trim()){
+        message.innerHTML = "Por favor, ingrese un nombre";
+        return;
+    }else{
+        fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({name: newName})
+        })
+        .then(response => {
+            if(response.ok){
+                return response.json();
+            }
+            throw new Error('Error al crear la categoría');
+        })
+        .then(data => {
+            alert('Categoría creada correctamente');
+        })
+        .catch(error => {
+            alert('Error al crear la categoría');
+        });
+    }
+}

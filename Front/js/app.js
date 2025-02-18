@@ -84,3 +84,4 @@ function renderCategory(categories) {
         });
     }
     
+    

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -60,16 +61,6 @@ public class CategoryService {
         return new CategoryDTO( c.getId(),c.getName(),list);
     }
 
-    public Category buildCategory(CategoryDTO dto) {
-        List<Song> songs = dto.getSongs() != null ?
-                dto.getSongs().stream().map(this::convertToSong).collect(Collectors.toList())
-                : new ArrayList<>();
-
-        return Category.builder()
-                .songs(songs)
-                .name(dto.getName())
-                .build();
-    }
     public SongDTO convertToSongDTO(Song song) {
         return  SongDTO.builder()
                 .date(song.getDate())
@@ -101,7 +92,7 @@ public class CategoryService {
     @Transactional
     public List<CategoryDTO> getListCategory() {
         List<Category> list = categoryRepository.findAll();
-        List<CategoryDTO> dto = list.stream().map(this::buildDTO).collect(Collectors.toList());
+        List<CategoryDTO> dto = list.stream().map(this::buildCategoryDTO).collect(Collectors.toList());
 
         return dto;
     }
@@ -111,7 +102,7 @@ public class CategoryService {
         Category c;
         c = categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("No existe ese id "));
         categoryRepository.delete(c);
-        return buildDTO(c);
+        return buildCategoryDTO(c);
     }
 
     //PUT
@@ -121,7 +112,7 @@ public class CategoryService {
                 .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
         c.setName(name);
         categoryRepository.save(c);
-        return buildDTO(c);
+        return buildCategoryDTO(c);
     }
 
     
@@ -131,7 +122,7 @@ public class CategoryService {
         Category c = categoryRepository.findById(id)
                     .orElseThrow(() -> new RuntimeException("No se encuentra la categoría") );
 
-        return buildDTO(c);
+        return buildCategoryDTO(c);
 
     }
 
