@@ -63,11 +63,10 @@ public class CategoryService {
 
 
     @Transactional
-    public CategoryDTO add(@RequestBody String name){
-        Category c = new Category(name,null);
-
+    public CategoryDTO add(CategoryDTO dto){
+        Category c = buildCategory(dto);
         categoryRepository.save(c);
-        return buildCategoryDTO(c);
+        return dto;
 
     }
 
