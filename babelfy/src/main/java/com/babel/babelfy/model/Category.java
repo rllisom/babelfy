@@ -9,20 +9,23 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Data
 @Builder
 public class Category {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
+
     private String name;
 
     @OneToMany()
     private List<Song> songs;
 
-
-
+    public Category(String name, List<Song> songs) {
+        this.name = name;
+        this.songs = songs;
+    }
 }
