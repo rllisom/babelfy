@@ -18,23 +18,21 @@ function abrirMenu(b){
         a.style.display = "flex";
     }
  }
- /* Espera a que el documento esté cargado antes de ejecutar el código */
+
  document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('name') && document.getElementById('lista')) {
-        // Estamos en showCategory.html
-        getCategory(); // Esta función debería estar definida (por ejemplo, en category.js)
+        getCategory(); 
     } else if (document.getElementById('categories-container')) {
-        // Estamos en category.html
         getCategorias();
     }
 });
 
 //GET ALL
 function getCategorias() {
-    // URL del endpoint
+    
     const url = 'http://localhost:9000/categories';
 
-    // Llamada a la API
+    
     fetch(url)
         .then(function(response) {
             if (response.ok) {
@@ -65,16 +63,14 @@ function modifyCategory(id) {
 function renderCategory(categories) {
     var container = document.getElementById('categories-container');
 
-    // Limpiar el contenedor antes de renderizar nuevas categorías
     container.innerHTML = '';
 
-    // Recorrer las categorías y agregarlas al contenedor
     categories.forEach(function(category, index) {
         var categoryElement = document.createElement('div');
         categoryElement.classList.add('category');
 
-        categoryElement.innerHTML = `
-            <h3>${category.name}</h3>
+        categoryElement.innerHTML = 
+        ` <h3>${category.name}</h3>
             <button type="button" onclick="abrirMenu(${index})">
                 <i class="bi bi-list"></i>
             </button>
@@ -84,8 +80,7 @@ function renderCategory(categories) {
                 <li>
                     <a type="button" href="#" onclick="mensajeConfirmacion(${category.id})">Eliminar categoría</a>
                 </li> 
-            </ul> 
-        `;
+            </ul>  `;
 
         container.appendChild(categoryElement);
     });
