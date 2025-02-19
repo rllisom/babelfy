@@ -19,8 +19,14 @@ function abrirMenu(b){
     }
  }
  /* Espera a que el documento esté cargado antes de ejecutar el código */
-document.addEventListener('DOMContentLoaded', function() {
-    getCategorias(); 
+ document.addEventListener('DOMContentLoaded', function() {
+    if (document.getElementById('name') && document.getElementById('lista')) {
+        // Estamos en showCategory.html
+        getCategory(); // Esta función debería estar definida (por ejemplo, en category.js)
+    } else if (document.getElementById('categories-container')) {
+        // Estamos en category.html
+        getCategorias();
+    }
 });
 
 //GET ALL
@@ -42,13 +48,18 @@ function getCategorias() {
             renderCategory(categories);
         })
         .catch(function(error) {
-            console.error('Error al obtener las categorías:', error);
+            console.error('Error al obtener las categorías:' + error);
         });
 }
 
 function showCategory(id) {
     localStorage.setItem('idCategoria', id);
     window.location.href = 'showCategory.html';
+}
+
+function modifyCategory(id) {
+    localStorage.setItem('idCategoria', id);
+    window.location.href = 'modifyCategory.html';
 }
 
 function renderCategory(categories) {
@@ -69,7 +80,7 @@ function renderCategory(categories) {
             </button>
             <ul id="menuDesplegable${index}" class="submenu">
                 <li><a onclick='showCategory(${category.id})'>Mostrar información</a></li>
-                <li><a href='modifyCategory.html'>Modificar categoría</a></li>
+                <li><a onclick = 'modifyCategory(${category.id})' >Modificar categoría</a></li>
                 <li>
                     <a type="button" href="#" onclick="mensajeConfirmacion(${category.id})">Eliminar categoría</a>
                 </li> 
@@ -112,6 +123,7 @@ function renderCategory(categories) {
 
     //PUT
     function guardarNombre(){
+    const id = localStorage.getItem('idCategoria');
     let newName = document.getElementById("newName").value;
     const apiUrl = `http://localhost:9000/categories/${id}`;
     const message = document.getElementById("message");
@@ -128,15 +140,29 @@ function renderCategory(categories) {
             body: JSON.stringify({name: newName})
         })
         .then(response => {
-            if(response.ok){
-                return response.json();
+            if (response.ok) {
+                return response.text(); // Intentamos obtener texto en lugar de JSON
+            } else {
+                throw new Error('Error al actualizar el nombre');
             }
-            throw new Error('Error al actualizar el nombre');
+        })
+        .then(text => {
+            if (!text) {
+                // Si el backend devuelve `null` (que se traduce en una cadena vacía), mostramos el mensaje
+                alert('Fallo al actualizar el nombre. Ya existe');
+                return;
+            }
+            return JSON.parse(text); // Convertimos solo si hay contenido JSON
         })
         .then(data => {
-            alert('Categoría actualizada correctamente');
+            if (data) {
+                alert('Categoría actualizada correctamente');
+                window.location.href = 'category.html';
+            }
         })
         .catch(error => {
+            console.log(error);
+            
             alert('Error al actualizar el nombre');
         });
         
@@ -146,61 +172,63 @@ function renderCategory(categories) {
 }
 
 //GET ONE
-document.addEventListener('DOMContentLoaded', function(){
+// document.addEventListener('DOMContentLoaded', function(){
 
-    function getCategory(){
-        id = localStorage.getItem('idCategoria');
-        const apiUrl = `http://localhost:9000/categories/${id}`;
+//     function getCategory(){
+//         const id = localStorage.getItem('idCategoria');
+//         const apiUrl = `http://localhost:9000/categories/${id}`;
 
-        fetch(apiUrl)
-            .then(function(response){
-                if(!response.ok){
-                    throw new Error('Error en la respuesta de la API' + response.statusText);
-                }else{
-                    return response.json();
-                }
-            })
-            .then(function(category){
-                renderCategory(category);
-            })
-            .catch(function(error){
-                console.error('Error al cargar la categoría ' + error);
-                document.getElementById('card').innerHTML  = '<p>Error al cargar la categoría</p>';
-            });
-    }
+//         fetch(apiUrl)
+//             .then(function(response){
+//                 if(!response.ok){
+//                     throw new Error('Error en la respuesta de la API' + response.statusText);
+//                 }else{
+//                     return response.json();
+//                 }
+//             })
+//             .then(function(category){
+//                 renderCategory(category);
+//             })
+//             .catch(function(error){
+//                 console.error('Error al cargar la categoría ' + error);
+//                 document.getElementById('card').innerHTML  = '<p>Error al cargar la categoría</p>';
+//             });
+//     }
 
-    function renderCategory(category){
+//     function renderCategory(category){
 
-        
-        if(!category){
-            document.getElementById('name').innerHTML = 'No se encontró la categoría';
-            document.getElementById('lista').innerHTML = '<li>No hay canciones disponibles</li>';
-        }else{
-            document.getElementById('name').innerText = category.name;
-            if(!category.songs){
-                document.getElementById('lista').innerHTML = '<li>No hay canciones disponibles</li>';
-            }else{
-                const listaElement = document.getElementById('lista');
-                listaElement.innerHTML = '';
-                category.songs.forEach(song => {
-                    const li = document.createElement('li');
-                    li.innerText = song.name;
-                    listaElement.appendChild(li);
-                });
-             }
+//         const nameElement = document.getElementById('name');
+//         const listElement = document.getElementById('lista');
+
+//         if(!nameElement || !listElement){
+//             console.error('No se encontraron los elementos');
+//             return;
+//         }
+
+//         if(!category){
+//             nameElement.innerHTML = 'No se encontró la categoría';
+//             listElement.innerHTML = '<li>No hay canciones disponibles</li>';
+//         }else{
+//             nameElement.innerText = category.name;
+//             if(!category.songs){
+//                 listElement.innerHTML = '<li>No hay canciones disponibles</li>';
+//             }else{
+//                 listElement.innerHTML = '';
+//                 category.songs.forEach(song => {
+//                     const li = document.createElement('li');
+//                     li.innerText = song.name;
+//                     listElement.appendChild(li);
+//                 });
+//              }
             
             
 
             
-        }
-    }
+//         }
+//     }
+//     getCategory();
 
-
-   
-
-    getCategory();
-
-}); 
+// }); 
 
  //POST
  function createCategory(){
@@ -222,12 +250,22 @@ document.addEventListener('DOMContentLoaded', function(){
         })
         .then(response => {
             if(response.ok){
-                return response.json();
+                return response.text();
             }
             throw new Error('Error al crear la categoría');
         })
+        .then(text => {
+            if(!text){
+                alert('Fallo al crear la categoría. Ya existe');
+                return;
+            }
+            return JSON.parse(text);
+        })
         .then(data => {
+            if(data){
             alert('Categoría creada correctamente');
+            window.location.href = 'category.html';
+            }
         })
         .catch(error => {
             alert('Error al crear la categoría');

@@ -39,7 +39,7 @@ body {
     border: 1px solid #1ed760;
     border-radius: 5px;
     margin: 30px;
-    transition: transform 0.3s ease border-shadow 0.3s ease;
+    transition: transform 0.5s ease border-shadow 0.3s ease;
 }
  
 .contTitle li:hover{

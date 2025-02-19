@@ -33,7 +33,7 @@
 
         <section>
             <h2>Nuevo nombre</h2>
-            <input type="text" class="dataAPI" id="newName" placeholder=" Introduzca el nombre" name = "name">
+            <input type="text" class="dataAPI" id="newName" placeholder=" Introduzca el nombre" name = "name" pattern="[A-Za-z]{1,20}" required>
             <button onclick="guardarNombre()">Cambiar</button>
             <p id="message"></p>
             

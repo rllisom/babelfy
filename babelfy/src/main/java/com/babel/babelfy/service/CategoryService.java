@@ -107,14 +107,27 @@ public class CategoryService {
 
     //PUT
     @Transactional
-    public CategoryDTO put(long id, String name){
+    public CategoryDTO put(long id, String name) {
+
+        name = name.trim();
+        List<Category> list = categoryRepository.findAll();
         Category c = categoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
-        c.setName(name);
-        categoryRepository.save(c);
-        return buildCategoryDTO(c);
-    }
 
+        for(Category category : list){
+            if(category.getName().trim().equalsIgnoreCase(name)) {
+                return null;
+            }
+        }
+        if (c.getName().trim().equalsIgnoreCase(name) ) {
+            return null;
+        }
+
+            c.setName(name);
+            categoryRepository.save(c);
+            return buildCategoryDTO(c);
+
+    }
     
     //GET BY ID
     @Transactional
@@ -130,6 +143,15 @@ public class CategoryService {
 
     @Transactional
     public CategoryDTO add(CategoryDTO dto){
+        List <Category> list = categoryRepository.findAll();
+
+        String name = dto.getName().trim();
+        for(Category category : list ){
+            if(category.getName().trim().equalsIgnoreCase(name)){
+                return null;
+            }
+        }
+
         Category c = buildCategory(dto);
         categoryRepository.save(c);
         return dto;

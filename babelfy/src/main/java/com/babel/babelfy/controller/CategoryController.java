@@ -26,7 +26,6 @@ public class CategoryController {
     //GET ALL
       @GetMapping ("")
     public List<CategoryDTO> getAll(){
-
         return  categoryService.getListCategory();
     }
 
@@ -41,6 +40,7 @@ public class CategoryController {
     public CategoryDTO deleteById (@PathVariable long id){
         return categoryService.deleteCategory(id);
     }
+
     //POST
     @PostMapping("")
     public CategoryDTO add(@RequestBody CategoryDTO dto){
