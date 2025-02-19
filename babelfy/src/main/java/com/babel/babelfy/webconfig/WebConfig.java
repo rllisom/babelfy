@@ -1,4 +1,4 @@
-package com.babel.babelfy.webConfig;
+package com.babel.babelfy.webconfig;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
