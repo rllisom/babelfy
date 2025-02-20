@@ -24,6 +24,12 @@ function abrirMenu(b){
         getCategory(); 
     } else if (document.getElementById('categories-container')) {
         getCategorias();
+    }else{
+        const nombreGuardado = localStorage.getItem('name');
+        if(nombreGuardado){
+            this.getElementById("newName").value = nombreGuardado;
+           
+        }
     }
 });
 
@@ -50,15 +56,6 @@ function getCategorias() {
         });
 }
 
-function showCategory(id) {
-    localStorage.setItem('idCategoria', id);
-    window.location.href = 'showCategory.html';
-}
-
-function modifyCategory(id) {
-    localStorage.setItem('idCategoria', id);
-    window.location.href = 'modifyCategory.html';
-}
 
 function renderCategory(categories) {
     var container = document.getElementById('categories-container');
@@ -76,7 +73,7 @@ function renderCategory(categories) {
             </button>
             <ul id="menuDesplegable${index}" class="submenu">
                 <li><a onclick='showCategory(${category.id})'>Mostrar información</a></li>
-                <li><a onclick = 'modifyCategory(${category.id})' >Modificar categoría</a></li>
+                <li><a onclick = 'modifyCategory(${category.id},"${category.name}")'>Modificar categoría</a></li>
                 <li>
                     <a type="button" href="#" onclick="mensajeConfirmacion(${category.id})">Eliminar categoría</a>
                 </li> 
@@ -117,6 +114,15 @@ function renderCategory(categories) {
     }
 
     //PUT
+
+    function modifyCategory(id,name) {
+        
+        localStorage.setItem('idCategoria', id);
+        localStorage.setItem('name', name);
+        window.location.href = 'modifyCategory.html';
+        
+    }
+    
     function guardarNombre(){
     const id = localStorage.getItem('idCategoria');
     let newName = document.getElementById("newName").value;
@@ -166,6 +172,11 @@ function renderCategory(categories) {
     
 }
 
+
+function showCategory(id) {
+    localStorage.setItem('idCategoria', id);
+    window.location.href = 'showCategory.html';
+}
 //GET ONE
 // document.addEventListener('DOMContentLoaded', function(){
 
