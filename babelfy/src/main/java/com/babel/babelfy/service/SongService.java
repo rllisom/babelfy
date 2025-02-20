@@ -16,15 +16,13 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
-
-
 public class SongService {
 
     private final SongRepository songRepository;
 
 
     //Get by id
-    public SongDTO getById (Long id){
+    public SongDTO getById (long id){
         Song s;
         SongDTO dto;
         s = songRepository.findById(id).orElseThrow(()-> new RuntimeException("No se encuentra la canción"));
@@ -62,6 +60,7 @@ public class SongService {
                 .album(song.getAlbum())
                 .duration(song.getDuration())
                 .artist(song.getArtist())
+                .name(song.getName())
                 .id_category(song.getCategory().getId())
                 .build();
 

@@ -1,10 +1,12 @@
+document.addEventListener('DOMContentLoaded', function(){
 
 function getSongById(){
     const id = localStorage.getItem('idCancion');
-    const apiUrl = `http://localhost:9000/songs/${id}`;
+    const apiUrl = `http://localhost:9000/songs/1`;
 
-    fetçh(apiUrl)
+    fetch(apiUrl)
         .then(function(response){
+            console.log("hola");
             return response.json();
         })
         .then(function(song){
@@ -12,36 +14,33 @@ function getSongById(){
         })
         .catch(function(error){
             console.error('Error al cargar la canción: ' + error);
-            const card = document.getElementById('card');
-            if(card){
-                card.innerHTML = '<p>Error al cargar la canción</p>';
-                }
+           
         });
 
 }
 
 function renderSingleSong(song){
-    const nameElement = document.getElementById('songName');
-    const authorElement = document.getElementById('author');
-    const albumElement = document.getElementById('album');
-    const categoryElement = document.getElementById('category');
-    const dateElement = document.getElementById('releaseDate');
-    const durationElement = document.getElementById('duration');
+    console.log(song);
+    
 
-    if(!nameElement || !authorElement || !albumElement || !categoryElement || !dateElement || !durationElement){
-        console.error('No se encontraron los elementos "songName", "author", "album", "category", "releaseDate" o "duration" en el DOM.');
-        return;
-    }
+    let songName = document.getElementById('songName');
+    let songArtist = document.getElementById('author');
+    let songAlbum = document.getElementById('album');   
+    let songReleaseDate = document.getElementById('releaseDate');
+    let songDuration = document.getElementById('duration');
+    let songCategory = document.getElementById('category');
 
-    if(!song){
-        nameElement.innerHTML = 'No se encontró la canción';
-        
-    } else {
-        nameElement.innerText = song.name;
-        authorElement.innerText = song.author;
-        albumElement.innerText = song.album;
-        categoryElement.innerText = song.category;
-        dateElement.innerText = song.releaseDate;
-        durationElement.innerText = song.duration;
-    }
+    songName.innerText = song.name;
+    songArtist.innerText = song.artist;
+    songAlbum.innerText = song.album;
+    songReleaseDate.innerText = song.releaseDate;
+    songDuration.innerText = song.duration;
+    songCategory.innerText = song.category;
+    
+       
+    
+
+   
 }
+getSongById()
+});
