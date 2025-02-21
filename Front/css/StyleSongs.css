@@ -111,10 +111,10 @@ main h1 {
 }
 
 .caract {
+    
     display: flex;
     justify-content: space-around;
     text-transform: uppercase;
-    
     font-weight: bold;
     color: #b3b3b3;
     padding: 15px;
@@ -122,6 +122,7 @@ main h1 {
 }
 
 .caract p{
+    margin-right: 7%;
     padding-top: 10px;
     font-size: 0.7rem;
 }
@@ -151,68 +152,30 @@ main h1 {
     font-size: 0.9rem;
     font-weight: 500;
     width: 20%;
-    text-align: center;
+    margin-left: 10%;
 }
 
 .lineSong button {
     position: absolute;
-    right: 10px;
+    right: 3%;
     bottom: 10px;
     text-decoration: none;
     background-color:#181818;
     color: #1db954;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     transition: color 0.3s ease;
     cursor: pointer;
     border: none;
     background: none;
 }
 
-.lineSong a:hover {
-    color: #1ed760;
-}
-
-
-.lineSong li > ul {
-    position: absolute;
-    top: 18%;
-    right: 10px;
-    background: #1db954;
-    border-radius: 5px;
-    padding: 5px 0;
-    width: 160px;
-    opacity: 0;
-    transition: opacity 0.5s;
-    flex-direction: column;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-}
-
-.lineSong li:hover > ul {
-    opacity: 1;
-}
-
-.lineSong li > ul > li {
-    padding: 10px;
-    text-align: center;
-    font-size: 0.85rem;
-    transition: background-color 0.5s ease;
-}
-
-.lineSong li > ul > li:hover {
-    background-color: #14833b;
-}
-
-.lineSong li > ul > li a {
-    color: white;
-    text-decoration: none;
-}
 
 /* SUBMENÚ */
 .lineSong .submenu {
     display: none;
     position: absolute;
     top: 98%;
-    left: 91%;
+    left: 92%;
     transform: translateX(-50%);
     width: 180px;
     background: rgba(29, 185, 84, 0.9);
@@ -239,10 +202,11 @@ main h1 {
 .lineSong .submenu li {
     padding: 10px;
     text-align: center;
-    font-size: 0.95rem;
+    width: 100%;
     font-weight: bold;
     color: #fff;
     cursor: pointer;
+    margin: 0 auto;
   
 }
 
@@ -254,8 +218,8 @@ main h1 {
 .lineSong .submenu li a {
     color: #fff;
     text-decoration: none;
-    display: block;
     width: 100%;
+    font-size: 0.75rem;
 }
 
 .lineSong a:hover {
@@ -268,7 +232,6 @@ main h1 {
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
     width: 30%;
     height: 30%;
     background-color: #fff;
@@ -277,11 +240,28 @@ main h1 {
     align-items: stretch;
     align-content: space-around;
     z-index: 1000;
-    transform: translateY(-50%), ;
+    transform: translateY(-60%);
+    margin-left: 25%;
     position: absolute;
 }
 .box h4{
     color: #121212;
+    text-align: center;
+}
+
+.botones{
+    display: flex;
+    margin: 5px;
+    justify-content: space-around;  
+}
+.botones button{
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #1db954;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    width: 100px;    
 }
 
 .newSong {

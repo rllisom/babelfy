@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
  
  //GET ALL
  function getSongs() {
-     const url = 'http://localhost:9000/songs';
+     const url = `http://localhost:9000/songs`;
  
      fetch(url)
          .then(function(response) {
@@ -59,15 +59,15 @@ document.addEventListener('DOMContentLoaded', function() {
      }
 
      function mensajeConfirmacion(id){
-        let mensaje = getElementById("open_PopUp");
-        let boton = getElementById("eliminar");
+        let mensaje = document.getElementById("open_PopUp");
+        let boton = document.getElementById("eliminar");
         boton.onclick = function(){
             eliminarCancion(id);
         }
-        if(mensaje.style.display == "block"){
+        if(mensaje.style.display == "flex"){
             mensaje.style.display = "none";
         }else{
-            mensaje.style.display = "block";
+            mensaje.style.display = "flex";
         }
      }
 
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
  //DELETE
  
  function eliminarCancion(id) {  
-     const url = 'http://localhost:9000/songs/' + id;
+     const url = `http://localhost:9000/songs/${id}`;
      fetch(url, {
          method: 'DELETE',
          headers: {
@@ -95,9 +95,11 @@ document.addEventListener('DOMContentLoaded', function() {
      .then(data => {
          alert("Canción eliminada correctamente")
          getSongs();
+         document.getElementById('open_PopUp').style.display = 'none';
      })
      .catch(error => {
          alert("Error al eliminar la canción")
+         document.getElementById('open_PopUp').style.display = 'none';
      });
  
  }
