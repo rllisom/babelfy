@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/StyleSongs.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <title>pedrafy</title>
+</head>
+<body>
+    <header>
+        <div class="contTitle">
+            <h3>Pedrafy</h3>
+            <img src="../img/logo.png" alt="Logo Pedrafy">
+        </div>
+    </header>
+  
+  <div class="content">
+
+    <aside>
+        <ul>
+            <li><a href="inicio.html">Inicio</a></li>
+            <li><a href="category.html">Categorías</a></li>
+            <li><a href="">Canciones</a></li>
+        </ul>
+    </aside>
+
+    <main>
+    
+        <h1>Canciones</h1>
+        <div class="caract">
+        <p>Nombre</p>
+        <p>Artista</p>
+        <p>Duración</p>
+        
+    </div>
+
+<!--Listado de canciones con su submenú-->
+    <section >
+        <div id="song-container">
+           
+        </div>
+        
+    </section>
+
+    <section>
+        <div class="box" id="open_PopUp">
+            <h4>¿Estás seguro que deseas eliminar la categoría?</h4>
+            <div class="botones">
+            <button id="eliminar">SI</button>
+            <button type="button" onclick="mensajeConfirmacion()">NO</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="newSongContainer">
+        <div class="newSong">
+            <a href=""><i class="bi bi-plus-circle"></i></a>
+        </div>
+    </section> 
+   </main>
+
+</div>
+   <footer>
+    <p>© 2025 Pedrafy | Todos los derechos reservados</p>
+    <div class="footer-icons">
+        <a href="#"><i class="bi bi-facebook"></i></a>
+        <a href="#"><i class="bi bi-twitter"></i></a>
+        <a href="#"><i class="bi bi-instagram"></i></a>
+    </div>
+</footer>
+
+<script src="../js/scriptSongs.js"></script>
+</body>
+</html>
