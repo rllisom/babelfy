@@ -29,31 +29,37 @@
 
     <main>
     
+        <h1>Canciones</h1>
         <div class="caract">
         <p>Nombre</p>
+        <p>Artista</p>
         <p>Duración</p>
-        <p>Categoría</p>
-   
+        
     </div>
 
 <!--Listado de canciones con su submenú-->
     <section >
-        <div class="lineSong" id="song-container">
-           <li>Himno Real Betis</li>
-           <li>3.05</li>
-           <li>Glorioso</li>
-           <li>
-            <a href="#menu" onclick=""><i class="bi bi-three-dots"></i></a>
-            
-                <ul id="menu" class="submenu">
-                    <li><a href="" onclick="">Mostrar información</a></li>
-                    <li><a href="" onclick="">Cambiar información</a></li>
-
-                </ul>
-            </li>
+        <div id="song-container">
+           
         </div>
         
     </section>
+
+    <section>
+        <div class="box" id="open_PopUp">
+            <h4>¿Estás seguro que deseas eliminar la categoría?</h4>
+            <div class="botones">
+            <button id="eliminar">SI</button>
+            <button type="button" onclick="mensajeConfirmacion()">NO</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="newSongContainer">
+        <div class="newSong">
+            <a href=""><i class="bi bi-plus-circle"></i></a>
+        </div>
+    </section> 
    </main>
 
 </div>
@@ -65,5 +71,7 @@
         <a href="#"><i class="bi bi-instagram"></i></a>
     </div>
 </footer>
+
+<script src="../js/scriptSongs.js"></script>
 </body>
 </html>

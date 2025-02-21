@@ -96,23 +96,38 @@ main {
     padding-top: 80px; 
     padding-bottom: 50px;
     background-color: #181818;
+    margin-left: 20px;
+
 }
 
-
+main h1 {
+    margin-top: -20px;
+    margin-bottom: 20px;
+    width: 90%;
+    border-bottom: #fff 1px solid;
+    text-align: left;
+    padding-left: 10px;
+    margin-left: 20px;
+}
 
 .caract {
     display: flex;
     justify-content: space-around;
     text-transform: uppercase;
-    font-size: 0.9rem;
+    
     font-weight: bold;
     color: #b3b3b3;
     padding: 15px;
     border-bottom: 1px solid #282828;
 }
 
+.caract p{
+    padding-top: 10px;
+    font-size: 0.7rem;
+}
 
 .lineSong {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -121,7 +136,11 @@ main {
     background-color: #242424;
     border-radius: 8px;
     transition: background-color 0.3s ease;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
 }
+
 
 .lineSong:hover {
     background-color: #333333;
@@ -131,12 +150,22 @@ main {
     list-style: none;
     font-size: 0.9rem;
     font-weight: 500;
+    width: 20%;
+    text-align: center;
 }
 
-.lineSong a {
+.lineSong button {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    text-decoration: none;
+    background-color:#181818;
     color: #1db954;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     transition: color 0.3s ease;
+    cursor: pointer;
+    border: none;
+    background: none;
 }
 
 .lineSong a:hover {
@@ -177,6 +206,148 @@ main {
     color: white;
     text-decoration: none;
 }
+
+/* SUBMENÚ */
+.lineSong .submenu {
+    display: none;
+    position: absolute;
+    top: 98%;
+    left: 91%;
+    transform: translateX(-50%);
+    width: 180px;
+    background: rgba(29, 185, 84, 0.9);
+    border-radius: 8px;
+    padding: 8px 0;
+    list-style-type: none;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    transition: all 0.3s ease-in-out;
+}
+
+.lineSong .submenu.active {
+    position: absolute;
+    top: 88%;
+    left: 87%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid rgba(29, 185, 84, 0.9);
+}
+
+.lineSong .submenu li {
+    padding: 10px;
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+  
+}
+
+.lineSong .submenu li:hover {
+    background-color: #05702a;
+    transform: scale(1.05);
+}
+
+.lineSong .submenu li a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+}
+
+.lineSong a:hover {
+    color: #1ed760;
+}
+
+
+.box {
+    display: none;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    height: 30%;
+    background-color: #fff;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    align-items: stretch;
+    align-content: space-around;
+    z-index: 1000;
+    transform: translateY(-50%), ;
+    position: absolute;
+}
+.box h4{
+    color: #121212;
+}
+
+.newSong {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    
+}
+
+.newSong:hover {
+    transform: scale(1.15);
+    /* box-shadow: 0px 8px 20px rgba(29, 185, 84, 0.5); */
+}
+
+.newSong a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 2rem;
+}
+
+.newSongContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+
+/*FOOTER*/
+footer {
+    background: linear-gradient(to right, #1db954, #191414);
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 1rem;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.3);
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+.footer-icons {
+    margin-top: 5px;
+}
+
+.footer-icons a {
+    color: white;
+    margin: 0 10px;
+    font-size: 1.3rem;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.footer-icons a:hover {
+    transform: scale(1.2);
+    color: #1ed760;
+}
+
 
 
 @media (max-width: 450px) {

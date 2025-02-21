@@ -46,7 +46,7 @@ public class SongService {
     }
 
 
-    //GET BY ID
+    //GET ALL
     @Transactional
     public List<ResponseSongDTO> getAll (){
         List<Song> list = songRepository.findAll();

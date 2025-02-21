@@ -24,16 +24,57 @@ document.addEventListener('DOMContentLoaded', function() {
          });
  }
  
-     function renderSongs(songs) {
-         var container = document.getElementById('songs-container');
+    function renderSongs(songs) {
+         var container = document.getElementById('song-container');
          container.innerHTML = '';
          songs.forEach(function(song,index) {
              var songElement = document.createElement('div');
-             songElement.classList.ad
- 
+             songElement.classList.add('lineSong');
+             songElement.innerHTML =
+             `<li>${song.name}</li>
+             <li>${song.artist}</li>        
+             <li>${song.duration}</li>             
+             <li>
+             <button type="button" href="#menu${index}" onclick="abrirMenu(${index})">
+             <i class="bi bi-three-dots"></i></button>
+             </li>
+             <ul id="menu${index}" class="submenu">
+                    <li><a onclick="getSong(${song.id})">Mostrar información</a></li>
+                    <li><a onclick="putSong()">Cambiar información</a></li>
+                    <li>
+                        <a type="button" onclick="mensajeConfirmacion(${song.id})">Eliminar canción</a>
+                    </li>
+                </ul>`;
+                container.appendChild(songElement);
          });
      }
  
+     function abrirMenu(index){
+        let menu = document.getElementById("menu"+index);
+        if(menu.style.display == "block"){
+            menu.style.display = "none";
+        }else{
+            menu.style.display = "block";
+        }
+     }
+
+     function mensajeConfirmacion(id){
+        let mensaje = getElementById("open_PopUp");
+        let boton = getElementById("eliminar");
+        boton.onclick = function(){
+            eliminarCancion(id);
+        }
+        if(mensaje.style.display == "block"){
+            mensaje.style.display = "none";
+        }else{
+            mensaje.style.display = "block";
+        }
+     }
+
+        function getSong(id){
+            localStorage.setItem('idSong', id);
+            window.location.href = 'showSong.html';
+        }
  //DELETE
  
  function eliminarCancion(id) {  
