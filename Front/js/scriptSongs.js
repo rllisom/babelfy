@@ -123,6 +123,9 @@ function abrirMenu(index){
         
         }
         
+
+
+
         async function renderSingleSong(song) {
             
             const idCategoria = localStorage.getItem('idCategoria');
@@ -135,7 +138,8 @@ function abrirMenu(index){
                 const categoryData =  await categoryResponse.json();
                 
         
-                // 4️⃣ Insertar los datos en el HTML
+             
+
                 document.getElementById('songName').innerText = song.name;
                 document.getElementById('author').innerText = song.artist;
                 document.getElementById('album').innerText = song.album;

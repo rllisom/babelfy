@@ -1,4 +1,6 @@
-
+document.addEventListener('DOMContentLoaded', function() {
+    getCategory();
+});
 // Función para obtener y renderizar una única categoría
 function getCategory() {
     const id = localStorage.getItem('idCategoria');
@@ -14,6 +16,7 @@ function getCategory() {
         .then(function(category) {
             renderSingleCategory(category);
         })
+        .then()
         .catch(function(error) {
             console.error('Error al cargar la categoría: ' + error);
             const card = document.getElementById('card');
@@ -38,15 +41,55 @@ function renderSingleCategory(category) {
         listElement.innerHTML = '<li>No hay canciones disponibles</li>';
     } else {
         nameElement.innerText = category.name;
-        if (!category.songs || category.songs.length === 0) {
+        if (!category.songsDTO || category.songsDTO.length === 0) {
             listElement.innerHTML = '<li>No hay canciones disponibles</li>';
-        } else {
+        } else { 
             listElement.innerHTML = '';
-            category.songs.forEach(song => {
+            category.songsDTO.forEach(song => {
                 const li = document.createElement('li');
-                li.innerText = song.name;
+                
                 listElement.appendChild(li);
             });
         }
     }
+    return true;
+}
+function getSongById_2(){
+            
+    const id = localStorage.getItem('idSong');
+    const apiUrl = `http://localhost:9000/songs/`+id;
+
+    fetch(apiUrl)
+        .then(function(response){
+            return response.json();
+        })
+        .then(function(song){
+            renderSingleSong(song);
+        })
+        .catch(function(error){
+            console.error('Error al cargar la canción: ' + error);
+           
+        });
+
+}
+
+
+
+
+async function renderSingleSong_2(song) {
+    
+    const idCategoria = localStorage.getItem('idCategoria');
+    try {
+        console.log("Canción obtenida:", song);
+
+        const categoryResponse = await fetch(`http://localhost:9000/categories/`+idCategoria);
+        if (!categoryResponse.ok) throw new Error("Error al obtener la categoría");
+            
+
+        document.getElementById('songName').innerText = song.name;
+     
+    } catch (error) {
+        console.error(' Error al renderizar la canción:', error);
+    }
+    
 }

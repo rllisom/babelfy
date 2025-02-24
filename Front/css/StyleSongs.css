@@ -296,28 +296,48 @@ main h1 {
     display: none;
     justify-content: center;
     align-items: center;
-    width: 30%;
-    height: 40%;
+    width: 35%;
+    height: 48%;
     background-color: #05702a;
     border-radius: 10px;
     transition: background-color 0.3s ease;
     z-index: 1000;
     position: absolute;
     padding: 10px;
+    margin-left:25% ;
+    transform: translateY(-60%);
+}
+
+.addBoxClass .close{
+   position: absolute;
+    right: 16px;
+    cursor: pointer;
 }
 .addBoxClass h4{
-    color: #121212;
+    color:white;
     text-align: center;
+    margin: 20px;
 }
 
 .addBoxClass p {
-    color: black;
+    color:white;
     padding: 5px;
     font-size: 0.8rem;
 }
 
 .addBoxClass input{
     padding: 5px;
+}
+ .addBoxClass button{
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #1db954;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    width: 100px;
+    margin: 10px;
+    margin-left: 39%;
 }
 
 /*FOOTER*/
