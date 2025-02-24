@@ -71,6 +71,7 @@ function renderCategory(categories) {
     container.innerHTML = '';
 
     categories.forEach(function(category, index) {
+        if(category.id != 4){
         var categoryElement = document.createElement('div');
         categoryElement.classList.add('category');
 
@@ -88,6 +89,7 @@ function renderCategory(categories) {
             </ul>  `;
 
         container.appendChild(categoryElement);
+        }
     });
 
     console.log("Categorías renderizadas correctamente.");
@@ -98,7 +100,7 @@ function renderCategory(categories) {
     function eliminarCategoria(id) {
         // Asegúrate de tener la URL correcta para la API
         const apiUrl = `http://localhost:9000/categories/${id}`;
-    
+        
         fetch(apiUrl, {
             method: 'DELETE',
             headers: {
@@ -112,6 +114,7 @@ function renderCategory(categories) {
             throw new Error('Error al eliminar la categoría');
         })
         .then(data => {
+            
             alert('Categoría eliminada correctamente');
             getCategorias();
             document.getElementById('open_PopUp').style.display = 'none';  // Ocultamos el pop-up
@@ -171,64 +174,6 @@ function renderCategory(categories) {
     
 }
 
-//GET ONE
-// document.addEventListener('DOMContentLoaded', function(){
-
-//     function getCategory(){
-//         const id = localStorage.getItem('idCategoria');
-//         const apiUrl = `http://localhost:9000/categories/${id}`;
-
-//         fetch(apiUrl)
-//             .then(function(response){
-//                 if(!response.ok){
-//                     throw new Error('Error en la respuesta de la API' + response.statusText);
-//                 }else{
-//                     return response.json();
-//                 }
-//             })
-//             .then(function(category){
-//                 renderCategory(category);
-//             })
-//             .catch(function(error){
-//                 console.error('Error al cargar la categoría ' + error);
-//                 document.getElementById('card').innerHTML  = '<p>Error al cargar la categoría</p>';
-//             });
-//     }
-
-//     function renderCategory(category){
-
-//         const nameElement = document.getElementById('name');
-//         const listElement = document.getElementById('lista');
-
-//         if(!nameElement || !listElement){
-//             console.error('No se encontraron los elementos');
-//             return;
-//         }
-
-//         if(!category){
-//             nameElement.innerHTML = 'No se encontró la categoría';
-//             listElement.innerHTML = '<li>No hay canciones disponibles</li>';
-//         }else{
-//             nameElement.innerText = category.name;
-//             if(!category.songs){
-//                 listElement.innerHTML = '<li>No hay canciones disponibles</li>';
-//             }else{
-//                 listElement.innerHTML = '';
-//                 category.songs.forEach(song => {
-//                     const li = document.createElement('li');
-//                     li.innerText = song.name;
-//                     listElement.appendChild(li);
-//                 });
-//              }
-            
-            
-
-            
-//         }
-//     }
-//     getCategory();
-
-// }); 
 
  //POST
  function createCategory(){

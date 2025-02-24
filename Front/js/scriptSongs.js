@@ -236,11 +236,11 @@ function abrirMenu(index){
         let newDate = document.getElementById("dateSong").value;
         let newAlbum = document.getElementById("albumSong").value;
         
-        const message = document.getElementById("message");  
+        const message = document.getElementById("messageError");  
      
         
-        if(!newName.trim()){
-            message.innerHTML = "Por favor, ingrese una canción";
+        if(!newName.trim() || !newArtist.trim() || !newDuration.trim() || !newDate.trim() || !newAlbum.trim() || !newCategory){
+            message.innerHTML = "Por favor, rellene todas las casillas";
             return;
         }else{
     
