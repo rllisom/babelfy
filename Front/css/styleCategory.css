@@ -226,6 +226,9 @@ main section {
 }
 
 .box {
+    position: absolute;
+    right: 25%;
+    bottom: 40%;
     display: none;
     flex-direction: column;
     flex-wrap: wrap;
@@ -239,8 +242,8 @@ main section {
     align-items: stretch;
     align-content: space-around;
     z-index: 1000;
-    transform: translateY(-50%), ;
-    position: absolute;
+    
+    
 }
 .box h4{
     color: #121212;
