@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
          .catch(function(error) {
              console.error('Error al obtener las canciones:' + error);
          });
+         
  }
  
     function renderSongs(songs) {
@@ -48,6 +49,36 @@ document.addEventListener('DOMContentLoaded', function() {
                 container.appendChild(songElement);
          });
      }
+
+        
+     async function renderCategoryOptions() {
+        renderCategoryOptions();
+        const categoryResponse = await fetch(`http://localhost:9000/categories`);
+        const categoryData = await categoryResponse.json();
+        if (!categoryData || categoryData.length === 0) {
+            console.error('No se encontraron categorías');
+            return;
+        } 
+        console.log('Categorías recibidas:', categoryData);
+        var container = document.getElementById('categorySongOptions');
+        container.innerHTML = ''; 
+    
+        var selection = document.createElement('select');
+    
+        categoryData.forEach(function(category) { 
+            var option = document.createElement('option');
+            option.value = category.id; 
+            option.textContent = category.name; 
+            selection.appendChild(option); 
+        });
+    
+        container.appendChild(selection); 
+        localStorage.setItem('idCategoria',categoryData.id);
+        window.location.href = 'getSongs.html';
+        
+    }
+
+
  
      function abrirMenu(index){
         let menu = document.getElementById("menu"+index);
@@ -103,4 +134,57 @@ document.addEventListener('DOMContentLoaded', function() {
      });
  
  }
+
+ //POST 
+ function createCategory(){
+    renderCategoryOptions();
+    const idCategoria = localStorage.getItem('idCategoria');
+    const apiUrl = `http://localhost:9000/songs`;
+    let newName = document.getElementById("nameSong").value;
+    let newArtist = document.getElementById("artistSong").value;
+    let newDuration = document.getElementById("durationSong").value;
+    let newCategory = document.getElementById("categorySongOptions");
+    newCategory = idCategoria;
+    let newDate = document.getElementById("dateSong").value;
+    let newAlbum = document.getElementById("albumSong").value;
+    
+    const message = document.getElementById("message");
+ 
+ 
+    if(!newName.trim()){
+        message.innerHTML = "Por favor, ingrese un nombre";
+        return;
+    }else{
+        fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({name: newName} , {artist: newArtist}, {duration: newDuration},
+                 {category: newCategory}, {date: newDate}, {album: newAlbum})
+        })
+        .then(response => {
+            if(response.ok){
+                return response.text();
+            }
+            throw new Error('Error al crear el nombre');
+        })
+        .then(text => {
+            if(!text){
+                alert('Fallo al crear la canción. Ya existe');
+                return;
+            }
+            return JSON.parse(text);
+        })
+        .then(data => {
+            if(data){
+            alert('Canción creada correctamente');
+            window.location.href = 'getSongs.html';
+            }
+        })
+        .catch(error => {
+            alert('Error al crear la canción');
+        });
+    }
+}
  

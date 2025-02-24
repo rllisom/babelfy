@@ -57,10 +57,30 @@
 
     <section class="newSongContainer">
         <div class="newSong">
-            <a href=""><i class="bi bi-plus-circle"></i></a>
+            <a onclick="renderCategoryOptions()"><i class="bi bi-plus-circle"></i></a>
         </div>
-    </section> 
-   </main>
+    </section>
+    <section>
+            <div class="addBoxClass" id="addBox">
+                <h4>Añadir Canción</h4>
+                    <p>Nombre:</p>
+                    <input type="text" id="nameSong" placeholder="Nombre de la canción">
+                    <p>Artista:</p>
+                    <input type="text" id="artistSong" placeholder="Nombre del artista">
+                    <p>Duración:</p>
+                    <input type="text" id="durationSong" placeholder="Duración de la canción">
+                    <p>Fecha de salida</p>
+                    <input type="date" id="dateSong" placeholder="Fecha de salida">
+                    <p>Album</p>
+                    <input type="text" id="albumSong" placeholder="Nombre del album">
+                    
+                    <p>Categoría</p>
+                    <select id="categorySongOptions">
+                       
+                    </select>
+            </div>
+    </section>
+    </main>
 
 </div>
    <footer>

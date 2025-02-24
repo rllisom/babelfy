@@ -50,6 +50,10 @@ function getCategorias() {
         });
 }
 
+
+
+
+
 function showCategory(id) {
     localStorage.setItem('idCategoria', id);
     window.location.href = 'showCategory.html';
@@ -267,3 +271,4 @@ function renderCategory(categories) {
         });
     }
 }
+
