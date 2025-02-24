@@ -19,7 +19,7 @@ public class Category {
 
     private String name;
 
-    @OneToMany()
+    @OneToMany(mappedBy = "category")
     private List<Song> songs;
 
     public Category(String name, List<Song> songs) {

@@ -17,7 +17,7 @@ public class CategoryDTO {
 
     private long id;
     private String name;
-    private List<SongDTO> songsDTO = new ArrayList<SongDTO>();
+    private List<SongDTO> songsDTO ;
 
     public CategoryDTO(String name, List<SongDTO> songsDTO) {
         this.name = name;

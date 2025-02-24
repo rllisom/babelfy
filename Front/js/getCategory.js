@@ -1,24 +1,26 @@
 document.addEventListener('DOMContentLoaded', function() {
     getCategory();
 });
-// Función para obtener y renderizar una única categoría
+
+// Función para obtener y renderizar una categoría con sus canciones
 function getCategory() {
-    const id = localStorage.getItem('idCategoria');
-    const apiUrl = `http://localhost:9000/categories/${id}`;
+    const idCategoria = localStorage.getItem('idCategoria'); // Obtenemos el ID de la categoría
+  
+
+    const apiUrl = `http://localhost:9000/categories/${idCategoria}`;
 
     fetch(apiUrl)
         .then(function(response) {
             if (!response.ok) {
-                throw new Error('Error en la respuesta de la API: ' + response.statusText);
+                throw new Error(' Error en la respuesta de la API: ' + response.statusText);
             }
             return response.json();
         })
         .then(function(category) {
             renderSingleCategory(category);
         })
-        .then()
         .catch(function(error) {
-            console.error('Error al cargar la categoría: ' + error);
+            console.error(' Error al cargar la categoría:', error);
             const card = document.getElementById('card');
             if (card) {
                 card.innerHTML = '<p>Error al cargar la categoría</p>';
@@ -26,70 +28,25 @@ function getCategory() {
         });
 }
 
-// Función para renderizar la categoría en el DOM
 function renderSingleCategory(category) {
     const nameElement = document.getElementById('name');
     const listElement = document.getElementById('lista');
 
-    if (!nameElement || !listElement) {
-        console.error('No se encontraron los elementos "name" o "lista" en el DOM.');
+    nameElement.innerText = category.name;
+
+    let songs = category.songsDTO || category.songs; // Intentar ambas opciones
+
+    if (!songs || songs.length === 0) {
+        listElement.innerHTML = '<li>No hay canciones disponibles</li>';
         return;
     }
 
-    if (!category) {
-        nameElement.innerHTML = 'No se encontró la categoría';
-        listElement.innerHTML = '<li>No hay canciones disponibles</li>';
-    } else {
-        nameElement.innerText = category.name;
-        if (!category.songsDTO || category.songsDTO.length === 0) {
-            listElement.innerHTML = '<li>No hay canciones disponibles</li>';
-        } else { 
-            listElement.innerHTML = '';
-            category.songsDTO.forEach(song => {
-                const li = document.createElement('li');
-                
-                listElement.appendChild(li);
-            });
-        }
-    }
-    return true;
-}
-function getSongById_2(){
-            
-    const id = localStorage.getItem('idSong');
-    const apiUrl = `http://localhost:9000/songs/`+id;
+    listElement.innerHTML = ''; // Limpiar la lista antes de agregar nuevas canciones
 
-    fetch(apiUrl)
-        .then(function(response){
-            return response.json();
-        })
-        .then(function(song){
-            renderSingleSong(song);
-        })
-        .catch(function(error){
-            console.error('Error al cargar la canción: ' + error);
-           
-        });
-
-}
-
-
-
-
-async function renderSingleSong_2(song) {
-    
-    const idCategoria = localStorage.getItem('idCategoria');
-    try {
-        console.log("Canción obtenida:", song);
-
-        const categoryResponse = await fetch(`http://localhost:9000/categories/`+idCategoria);
-        if (!categoryResponse.ok) throw new Error("Error al obtener la categoría");
-            
-
-        document.getElementById('songName').innerText = song.name;
-     
-    } catch (error) {
-        console.error(' Error al renderizar la canción:', error);
-    }
-    
+    songs.forEach(song => {
+  
+        const li = document.createElement('li');
+        li.textContent = song.name;
+        listElement.appendChild(li);
+    });
 }
