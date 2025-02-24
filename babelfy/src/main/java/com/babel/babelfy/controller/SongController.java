@@ -25,7 +25,7 @@ public class SongController {
 
     //GET ALL
     @GetMapping("")
-    public List<ResponseSongDTO> getAll (){
+    public List<SongDTO> getAll (){
         return songService.getAll();
     }
 

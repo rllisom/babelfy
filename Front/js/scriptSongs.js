@@ -1,7 +1,49 @@
-document.addEventListener('DOMContentLoaded', function() {
-    getSongs();
- });
+//MENÚ DE OPCIONES
+
+function abrirMenu(index){
+    let menu = document.getElementById("menu"+index);
+    if(menu.style.display == "block"){
+        menu.style.display = "none";
+    }else{
+        menu.style.display = "block";
+    }
+ }
  
+ function createMenu(){
+    renderCategoryOptions();
+    let menu = document.getElementById("addBox");
+    if(menu.style.display == "block"){
+        menu.style.display = "none";
+    }else{
+        menu.style.display = "block";
+    }
+ }
+
+
+ function mensajeConfirmacion(id){
+    let mensaje = document.getElementById("open_PopUp");
+    let boton = document.getElementById("eliminar");
+    boton.onclick = function(){
+        eliminarCancion(id);
+    }
+    if(mensaje.style.display == "flex"){
+        mensaje.style.display = "none";
+    }else{
+        mensaje.style.display = "flex";
+    }
+ }
+
+
+ document.addEventListener('DOMContentLoaded', function() {
+    if (document.getElementById('song-container')) {
+        getSongs(); 
+    } else if (document.getElementById('card')) {
+    
+        getSongById();
+    }
+});
+
+
  
  //GET ALL
  function getSongs() {
@@ -25,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
          
  }
  
-    function renderSongs(songs) {
+ function renderSongs(songs) {
          var container = document.getElementById('song-container');
          container.innerHTML = '';
          songs.forEach(function(song,index) {
@@ -40,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
              <i class="bi bi-three-dots"></i></button>
              </li>
              <ul id="menu${index}" class="submenu">
-                    <li><a onclick="getSong(${song.id})">Mostrar información</a></li>
+                    <li><a onclick="getSong(${song.id},${song.id_category})">Mostrar información</a></li>
                     <li><a onclick="putSong()">Cambiar información</a></li>
                     <li>
                         <a type="button" onclick="mensajeConfirmacion(${song.id})">Eliminar canción</a>
@@ -50,62 +92,68 @@ document.addEventListener('DOMContentLoaded', function() {
          });
      }
 
+
+     //GET BY ID
+
+     function getSong(id, id_category){
+        localStorage.setItem('idCategoria', id_category);
+        localStorage.setItem('idSong', id);
+        window.location.href = 'showSong.html';
         
-     async function renderCategoryOptions() {
-        renderCategoryOptions();
-        const categoryResponse = await fetch(`http://localhost:9000/categories`);
-        const categoryData = await categoryResponse.json();
-        if (!categoryData || categoryData.length === 0) {
-            console.error('No se encontraron categorías');
-            return;
-        } 
-        console.log('Categorías recibidas:', categoryData);
-        var container = document.getElementById('categorySongOptions');
-        container.innerHTML = ''; 
-    
-        var selection = document.createElement('select');
-    
-        categoryData.forEach(function(category) { 
-            var option = document.createElement('option');
-            option.value = category.id; 
-            option.textContent = category.name; 
-            selection.appendChild(option); 
-        });
-    
-        container.appendChild(selection); 
-        localStorage.setItem('idCategoria',categoryData.id);
-        window.location.href = 'getSongs.html';
-        
+
     }
 
-
- 
-     function abrirMenu(index){
-        let menu = document.getElementById("menu"+index);
-        if(menu.style.display == "block"){
-            menu.style.display = "none";
-        }else{
-            menu.style.display = "block";
+  
+        function getSongById(){
+            
+            const id = localStorage.getItem('idSong');
+            const apiUrl = `http://localhost:9000/songs/`+id;
+        
+            fetch(apiUrl)
+                .then(function(response){
+                    return response.json();
+                })
+                .then(function(song){
+                    renderSingleSong(song);
+                })
+                .catch(function(error){
+                    console.error('Error al cargar la canción: ' + error);
+                   
+                });
+        
         }
-     }
-
-     function mensajeConfirmacion(id){
-        let mensaje = document.getElementById("open_PopUp");
-        let boton = document.getElementById("eliminar");
-        boton.onclick = function(){
-            eliminarCancion(id);
+        
+        async function renderSingleSong(song) {
+            
+            const idCategoria = localStorage.getItem('idCategoria');
+            try {
+                console.log("Canción obtenida:", song);
+        
+                const categoryResponse = await fetch(`http://localhost:9000/categories/`+idCategoria);
+                if (!categoryResponse.ok) throw new Error("Error al obtener la categoría");
+                
+                const categoryData =  await categoryResponse.json();
+                
+        
+                // 4️⃣ Insertar los datos en el HTML
+                document.getElementById('songName').innerText = song.name;
+                document.getElementById('author').innerText = song.artist;
+                document.getElementById('album').innerText = song.album;
+                document.getElementById('releaseDate').innerText = song.date;
+                document.getElementById('duration').innerText = song.duration;
+                document.getElementById('category').innerText = categoryData.name;
+            } catch (error) {
+                console.error(' Error al renderizar la canción:', error);
+            }
+            
         }
-        if(mensaje.style.display == "flex"){
-            mensaje.style.display = "none";
-        }else{
-            mensaje.style.display = "flex";
-        }
-     }
-
-        function getSong(id){
-            localStorage.setItem('idSong', id);
-            window.location.href = 'showSong.html';
-        }
+       
+        
+        
+        
+        
+      
+       
  //DELETE
  
  function eliminarCancion(id) {  
@@ -136,15 +184,15 @@ document.addEventListener('DOMContentLoaded', function() {
  }
 
  //POST 
- function createCategory(){
+ function createSong(){
     renderCategoryOptions();
-    const idCategoria = localStorage.getItem('idCategoria');
+    
     const apiUrl = `http://localhost:9000/songs`;
     let newName = document.getElementById("nameSong").value;
     let newArtist = document.getElementById("artistSong").value;
     let newDuration = document.getElementById("durationSong").value;
     let newCategory = document.getElementById("categorySongOptions");
-    newCategory = idCategoria;
+    newCategory =  localStorage.getItem('idCategoria');
     let newDate = document.getElementById("dateSong").value;
     let newAlbum = document.getElementById("albumSong").value;
     
@@ -155,13 +203,22 @@ document.addEventListener('DOMContentLoaded', function() {
         message.innerHTML = "Por favor, ingrese un nombre";
         return;
     }else{
+
+        const newSong = {
+            name: newName,
+            artist: newArtist,
+            duration: newDuration,
+            category: newCategory,
+            date: newDate,
+            album: newAlbum
+        };
+
         fetch(apiUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({name: newName} , {artist: newArtist}, {duration: newDuration},
-                 {category: newCategory}, {date: newDate}, {album: newAlbum})
+            body: JSON.stringify(newSong)
         })
         .then(response => {
             if(response.ok){
@@ -188,3 +245,35 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 }
  
+
+    async function renderCategoryOptions() {
+        const categoryResponse = await fetch(`http://localhost:9000/categories`);
+        const categoryData = await categoryResponse.json();
+
+        if (!categoryData || categoryData.length === 0) {
+            console.error('No se encontraron categorías');
+            return;
+        }
+
+        console.log('Categorías recibidas:', categoryData);
+        
+        let selectElement = document.getElementById('categorySongOptions');
+        selectElement.innerHTML = ''; // Limpiar opciones previas
+
+        
+        let defaultOption = document.createElement('option');
+        defaultOption.value = "";
+        defaultOption.textContent = "Selecciona una categoría";
+        selectElement.appendChild(defaultOption);
+
+        // Agregar opciones de categorías
+        categoryData.forEach(category => {
+            let option = document.createElement('option');
+            option.value = category.id;
+            option.textContent = category.name;
+            selectElement.appendChild(option);
+        });
+    }
+
+
+

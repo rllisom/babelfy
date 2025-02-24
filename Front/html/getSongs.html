@@ -23,7 +23,7 @@
         <ul>
             <li><a href="inicio.html">Inicio</a></li>
             <li><a href="category.html">Categorías</a></li>
-            <li><a href="">Canciones</a></li>
+            <li><a href="getSongs.html">Canciones</a></li>
         </ul>
     </aside>
 
@@ -57,7 +57,7 @@
 
     <section class="newSongContainer">
         <div class="newSong">
-            <a onclick="renderCategoryOptions()"><i class="bi bi-plus-circle"></i></a>
+            <a onclick="createMenu()"><i class="bi bi-plus-circle"></i></a>
         </div>
     </section>
     <section>
@@ -73,11 +73,12 @@
                     <input type="date" id="dateSong" placeholder="Fecha de salida">
                     <p>Album</p>
                     <input type="text" id="albumSong" placeholder="Nombre del album">
-                    
                     <p>Categoría</p>
                     <select id="categorySongOptions">
                        
                     </select>
+                    <br>
+                    <button onclick="createSong()">Crear</button>
             </div>
     </section>
     </main>
@@ -91,7 +92,8 @@
         <a href="#"><i class="bi bi-instagram"></i></a>
     </div>
 </footer>
-
+<!-- 
+<script src="../js/scriptSong2.js"></script> -->
 <script src="../js/scriptSongs.js"></script>
 </body>
 </html>

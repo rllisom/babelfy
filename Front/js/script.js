@@ -27,6 +27,7 @@ function abrirMenu(b){
     }
 });
 
+
 //GET ALL
 function getCategorias() {
     

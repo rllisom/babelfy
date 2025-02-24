@@ -45,15 +45,40 @@ public class SongService {
                         -> new RuntimeException("Categoría no encontrada")).getId());
     }
 
+    public SongDTO buildSongDTO (Song song){
+        return  SongDTO.builder()
+                .date(song.getDate())
+                .id(song.getId())
+                .album(song.getAlbum())
+                .duration(song.getDuration())
+                .artist(song.getArtist())
+                .name(song.getName())
+                .id_category(song.getCategory().getId())
+                .build();
+
+    }
+    private Song convertToSong(SongDTO songDTO) {
+        return Song.builder()
+                .name(songDTO.getName())
+                .date(songDTO.getDate())
+                .album(songDTO.getAlbum())
+                .artist(songDTO.getArtist())
+                .duration(songDTO.getDuration())
+                .id(songDTO.getId())
+                .category(songRepository.findById(songDTO.getId_category()).orElseThrow(()->new RuntimeException("Categoría" +
+                      " no encontrada")).getCategory())
+
+                .build();
+    }
 
     //GET ALL
     @Transactional
-    public List<ResponseSongDTO> getAll (){
+    public List<SongDTO> getAll (){
         List<Song> list = songRepository.findAll();
-        List<ResponseSongDTO> listDTO = new ArrayList<ResponseSongDTO>();
+        List<SongDTO> listDTO = new ArrayList<SongDTO>();
 
         for (Song s : list){
-            listDTO.add(songToResponseSongDTO(s));
+            listDTO.add(songToSongDTO(s));
         }
 
         return listDTO;
@@ -68,7 +93,7 @@ public class SongService {
         return songToSongDTO(s);
     }
 
-    //Get by id
+    //GET BY ID
     public SongDTO getById (long id){
         Song s;
         SongDTO dto;
@@ -79,7 +104,7 @@ public class SongService {
 
     }
 
-    //Add song
+    //POST
     public SongDTO add(SongDTO dto){
         Song s;
         String name;
@@ -100,28 +125,7 @@ public class SongService {
 
     //Build
 
-    public SongDTO buildSongDTO (Song song){
-        return  SongDTO.builder()
-                .date(song.getDate())
-                .id_category(song.getCategory() != null ? song.getCategory().getId() : null)
-                .album(song.getAlbum())
-                .duration(song.getDuration())
-                .artist(song.getArtist())
-                .name(song.getName())
-                .id_category(song.getCategory().getId())
-                .build();
 
-    }
-    private Song convertToSong(SongDTO songDTO) {
-        return Song.builder()
-                .name(songDTO.getName())
-                .date(songDTO.getDate())
-                .album(songDTO.getAlbum())
-                .artist(songDTO.getArtist())
-                .duration(songDTO.getDuration())
-
-                .build();
-    }
 
 
 
