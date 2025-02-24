@@ -58,6 +58,9 @@ public class SongService {
 
     }
     private Song convertToSong(SongDTO songDTO) {
+
+        System.out.println("ID de categoría recibido: " + songDTO.getId_category());
+
         return Song.builder()
                 .name(songDTO.getName())
                 .date(songDTO.getDate())
@@ -65,10 +68,13 @@ public class SongService {
                 .artist(songDTO.getArtist())
                 .duration(songDTO.getDuration())
                 .id(songDTO.getId())
-                .category(songRepository.findById(songDTO.getId_category()).orElseThrow(()->new RuntimeException("Categoría" +
-                      " no encontrada")).getCategory())
+                .category(categoryRepository.findById(songDTO.getId_category()).orElseThrow(()
+                        ->new RuntimeException("Categoría" + " no encontrada")))
 
                 .build();
+
+
+
     }
 
     //GET ALL
@@ -109,6 +115,7 @@ public class SongService {
         Song s;
         String name;
         name= dto.getName().trim();
+
         List <Song> list = songRepository.findAll();
 
         for (Song song: list){
@@ -123,7 +130,6 @@ public class SongService {
     }
 
 
-    //Build
 
 
 

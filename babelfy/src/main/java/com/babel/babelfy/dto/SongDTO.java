@@ -20,7 +20,4 @@ public class SongDTO {
     private LocalDate date;
     private long id_category;
 
-
-
-
 }
