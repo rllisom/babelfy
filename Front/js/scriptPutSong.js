@@ -32,30 +32,26 @@ document.addEventListener('DOMContentLoaded', function() {
   
   //PUT
 
-
-
   async function renderSingleSong(song) {
-            
     const idCategoria = localStorage.getItem('idCategoria');
-    try {
-        console.log("Canción obtenida:", song);
 
-        const categoryResponse = await fetch(`http://localhost:9000/categories/`+idCategoria);
-        if (!categoryResponse.ok) throw new Error("Error al obtener la categoría");
+    renderCategoryOptions()
+    .then(() => {
+        try {
+            console.log("Canción obtenida:", song);
         
-        const categoryData =  await categoryResponse.json();
-        
+            document.getElementById('songName').value = song.name;
+            document.getElementById('author').value = song.artist;
+            document.getElementById('album').value = song.album;
+            document.getElementById('releaseDate').value = song.date;
+            document.getElementById('duration').value = song.duration;
+            document.getElementById("categorySongOptions").value = song.id_category;
 
-        document.getElementById('songName').value = song.name;
-        document.getElementById('author').value = song.artist;
-        document.getElementById('album').value = song.album;
-        document.getElementById('releaseDate').value = song.date;
-        document.getElementById('duration').value = song.duration;
-        document.getElementById('category').value = categoryData.name;
-        
-    } catch (error) {
-        console.error(' Error al renderizar la canción:', error);
-    }
+        } catch (error) {
+            console.error(' Error al renderizar la canción:', error);
+        }
+    });
+
 
 
     

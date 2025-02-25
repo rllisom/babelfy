@@ -5,6 +5,7 @@ import com.babel.babelfy.dto.SongDTO;
 import com.babel.babelfy.model.Category;
 import com.babel.babelfy.model.Song;
 import com.babel.babelfy.repository.CategoryRepository;
+import com.babel.babelfy.repository.SongRepository;
 import jakarta.transaction.Transactional;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,7 @@ import java.util.stream.Collectors;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
-
+    private final SongRepository songRepository;
 
     //BUILDER
 
@@ -99,8 +100,18 @@ public class CategoryService {
      //DELETE
      @Transactional
     public CategoryDTO deleteCategory(long id) {
+        List<Song> list = songRepository.findAll() ;
         Category c;
+        Category undef = categoryRepository.findById(4L).orElseThrow(()
+        -> new RuntimeException("Categoría no encontrada"));
         c = categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("No existe ese id "));
+
+        for (Song s : list){
+             if(s.getCategory().getId() == c.getId()){
+                 s.setCategory(undef);
+                 songRepository.save(s);
+             }
+         }
         categoryRepository.delete(c);
         return buildCategoryDTO(c);
     }

@@ -305,7 +305,7 @@ main h1 {
     position: absolute;
     padding: 30px;
     margin-left: 20%;
-    transform: translateY(-54%); 
+    top: 11.5%; 
     overflow: hidden;
 }
 

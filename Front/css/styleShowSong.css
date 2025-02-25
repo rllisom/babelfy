@@ -105,39 +105,72 @@ main h1 {
 }
 
 section {
-    margin-top: 20px;
+    width: 60%;
+    margin: 0 auto;
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #1db954;  
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 section h2 {
-    font-size: 1.5rem;
-    color: #1db954;
-    margin-bottom: 10px;
+    font-size: 1.6rem;
+    color: #fff;
+    margin-bottom: 15px;
+    font-weight: 600;
 }
 
-section input{
-    margin-bottom: 10px;
-    padding: 5px;
-    border-radius: 5px;
+section input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.3s;
 }
+
+
 section p {
-    font-size: 1.2rem;
+    font-size: 1rem;
+    color: #333;
     margin: 10px 0;
+    font-weight: bold;
 }
 
-section button{
-    padding: 10px 20px;
-    background-color: #1db954;
+section select{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.3s;
+}
+
+section button {
+    padding: 10px 25px;
+    background-color: #23954b;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
+section button:hover {
+    background-color: #10652e;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+
+
 
 main .arrow {
     display: inline-block;
     position: relative;
-    top: 100px;
+    top: 30%;
     left: 10px;
     color: #1db954;
     font-size: 1.5rem;

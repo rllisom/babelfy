@@ -136,7 +136,6 @@ function abrirMenu(index){
                 if (!categoryResponse.ok) throw new Error("Error al obtener la categoría");
                 
                 const categoryData =  await categoryResponse.json();
-                
 
                 document.getElementById('songName').textContent = song.name;
                 document.getElementById('author').textContent = song.artist;
@@ -190,23 +189,24 @@ function abrirMenu(index){
     async function renderCategoryOptions() {
         const categoryResponse = await fetch(`http://localhost:9000/categories`);
         const categoryData = await categoryResponse.json();
-
+        
         if (!categoryData || categoryData.length === 0) {
             console.error('No se encontraron categorías');
             return;
         }
 
         console.log('Categorías recibidas:', categoryData);
-        
+       
         let selectElement = document.getElementById('categorySongOptions');
         selectElement.innerHTML = ''; 
 
-        
+        if(window.location.pathname.endsWith('putSong.html')){
+        }else{
         let defaultOption = document.createElement('option');
         defaultOption.value = "";
         defaultOption.textContent = "Selecciona una categoría";
         selectElement.appendChild(defaultOption);
-
+        }
         
         categoryData.forEach(category => {
             if(!(category.name === 'Undefined')){
@@ -223,6 +223,7 @@ function abrirMenu(index){
             localStorage.setItem('idCategoria', selectedCategoryId);
             console.log('ID de categoría guardada:', selectedCategoryId);
         });
+        return true;
     }
 
     function createSong(){
