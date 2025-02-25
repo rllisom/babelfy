@@ -41,6 +41,9 @@ function abrirMenu(index){
     
         getSongById();
     }
+    if (window.location.pathname.endsWith('putSong.html')) {
+        renderSingleSong(); // Llamar a la función cuando estés en putSong.html
+    }
 });
 
 
@@ -83,7 +86,7 @@ function abrirMenu(index){
              </li>
              <ul id="menu${index}" class="submenu">
                     <li><a onclick="getSong(${song.id},${song.id_category})">Mostrar información</a></li>
-                    <li><a onclick="putSong()">Cambiar información</a></li>
+                    <li><a onclick="putSong(${song.id},${song.id_category})">Cambiar información</a></li>
                     <li>
                         <a type="button" onclick="mensajeConfirmacion(${song.id})">Eliminar canción</a>
                     </li>
@@ -137,8 +140,6 @@ function abrirMenu(index){
                 
                 const categoryData =  await categoryResponse.json();
                 
-        
-             
 
                 document.getElementById('songName').innerText = song.name;
                 document.getElementById('author').innerText = song.artist;
@@ -254,7 +255,7 @@ function abrirMenu(index){
             };            
     
             fetch(apiUrl, {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -285,4 +286,82 @@ function abrirMenu(index){
         }
     }
 
+    //PUT
 
+    function putSong(id, id_category){
+        localStorage.setItem('idCategoria', id_category);
+        localStorage.setItem('idSong', id);
+        window.location.href = 'putSong.html';
+    
+    }
+
+    function saveSong(){
+
+        renderSingleSong();
+
+        const id = localStorage.getItem('idCategoria');
+
+        let newName = document.getElementById("nameSong").value;
+        let newArtist = document.getElementById("artistSong").value;
+        let newDuration = document.getElementById("durationSong").value;
+        let newCategory = localStorage.getItem('idCategoria');
+        let newDate = document.getElementById("dateSong").value;
+        let newAlbum = document.getElementById("albumSong").value;
+        
+        
+        const apiUrl = `http://localhost:9000/categories/${id}`;
+        const message = document.getElementById("message");
+    
+        if(!newName.trim()){
+            message.innerHTML = "Por favor, ingrese un nombre";
+            return;
+        }else{
+
+            const saveSong = {
+                name: newName,
+                artist: newArtist,
+                duration: newDuration,
+                id_category: newCategory,
+                date: newDate,
+                album: newAlbum
+            };            
+
+            fetch(apiUrl, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(saveSong)
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.text(); // Intentamos obtener texto en lugar de JSON
+                } else {
+                    throw new Error('Error al actualizar el nombre');
+                }
+            })
+            .then(text => {
+                if (!text) {
+                    // Si el backend devuelve `null` (que se traduce en una cadena vacía), mostramos el mensaje
+                    alert('Fallo al actualizar el nombre. Ya existe');
+                    return;
+                }
+                return JSON.parse(text); // Convertimos solo si hay contenido JSON
+            })
+            .then(data => {
+                if (data) {
+                    alert('Categoría actualizada correctamente');
+                    window.location.href = 'category.html';
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                
+                alert('Error al actualizar el nombre');
+            });
+            
+        }
+    
+        
+    }
+    

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar</title>
+    <link rel="stylesheet" href="../css/styleShowSong.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body >
+    <header>
+        <div class="contTitle">
+            <h3>Pedrafy</h3>
+            <img src="../img/logo.png" alt="Logo Pedrafy">
+        </div>
+    </header>
+
+    <div class="content">
+        <aside>
+            <ul>
+                <li><a href="inicio.html">Inicio</a></li>
+                <li><a href="category.html">Categorías</a></li>
+                <li><a href="getSongs.html">Canciones</a></li>
+            </ul>
+        </aside>
+
+        <main>
+            <div id="card" class="canciones">
+                <h1>Modificar la canción</h1>
+                <section>
+                    <h2>Nombre</h2>
+                    <input type="text" id="newName" placeholder="Introduzca el nombre" 
+                    name="name" required minlength="1" maxlength="20">
+                    
+                    <h2>Álbum</h2>
+                    <input type="text" id="newAlbum" placeholder="Introduzca el álbum"
+                    name="album" required minlength="1" maxlength="20">
+
+                    <h2>Autor</h2>
+                    <input type="text" id="newAuthor" placeholder="Introduzca el artista"
+                    name="artist" required minlength="1" maxlength="20">
+
+                    <h2>Fecha de salida</h2>
+                    <input type="date" id="newDate" name="date" required>
+
+                    <h2>Categoría </h2>
+                    <input type="text" id="newCategory" placeholder="Introduzca la categoría"
+                    name="category" required minlength="1" maxlength="20">
+                   
+                    <h2>Duración</h2>
+                    <input type="text" id="newDuration" placeholder="Introduzca la duración"
+                    name="duration" required minlength="1" maxlength="20">
+
+                    <br><br>
+                    <button onclick="saveSong()">Actualizar</button>
+                    
+                </section>
+
+                <a href="getSongs.html" class="arrow"><i class="bi bi-arrow-left-circle"></i></a>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <p>© 2025 Pedrafy | Todos los derechos reservados</p>
+        <div class="footer-icons">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-twitter"></i></a>
+            <a href="#"><i class="bi bi-instagram"></i></a>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/scriptSongs.js"></script>
+</body>
+</html>

@@ -130,7 +130,24 @@ public class SongService {
     }
 
 
+    //PUT
 
+    @Transactional
+    public SongDTO put(long id, SongDTO s){
+        Song song = songRepository.findById(id).orElseThrow(()
+                -> new RuntimeException("Canción no encontrada"));
+
+        song.setName(s.getName());
+        song.setAlbum(s.getAlbum());
+        song.setArtist(s.getArtist());
+        song.setDuration(s.getDuration());
+        song.setDate(s.getDate());
+        song.setCategory(categoryRepository.findById(s.getId_category()).orElseThrow(()
+                -> new RuntimeException("Categoría no encontrada")));
+        songRepository.save(song);
+
+        return s;
+    }
 
 
 
