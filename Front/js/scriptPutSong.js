@@ -72,6 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function saveSong(){
 
     const id = localStorage.getItem('idSong');
+    
 
     let nameSong = document.getElementById("songName").value;
     let artistSong = document.getElementById("author").value;
@@ -82,12 +83,14 @@ function saveSong(){
     
     
     const apiUrl = `http://localhost:9000/songs/${id}`;
-    const message = document.getElementById("messageError");
+   
+ 
+    if(nameSong.trim() === "" || artistSong.trim() === "" || durationSong.trim() === "" || dateSong.trim() === "" || albumSong.trim() === ""){
+       alert('No pueden haber campos vacíos');
+       window.location.href = 'putSong.html';
 
-    if(!nameSong.trim()){
-        message.innerHTML = "No has hecho ningún cambio";
-        return;
-    }else{
+        return;    
+    } else{
 
         const saveSong = {
             name: nameSong,
@@ -115,7 +118,7 @@ function saveSong(){
         .then(text => {
             if (!text) {
                 // Si el backend devuelve `null` (que se traduce en una cadena vacía), mostramos el mensaje
-                alert('Fallo al actualizar el nombre. Ya existe');
+                alert('Fallo al actualizar la canción. No ha habido cambios');
                 return;
             }
             return JSON.parse(text); // Convertimos solo si hay contenido JSON
@@ -129,7 +132,7 @@ function saveSong(){
         .catch(error => {
             console.log(error);
             
-            alert('Error al actualizar el nombre');
+            alert('Error al actualizar la canción');
         });
         
     }

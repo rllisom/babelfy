@@ -119,7 +119,12 @@ public class SongService {
         List <Song> list = songRepository.findAll();
 
         for (Song song: list){
-            if(song.getName().trim().equalsIgnoreCase(name)){
+            if(song.getName().trim().equalsIgnoreCase(name)
+                    && song.getArtist().equalsIgnoreCase(dto.getArtist().trim())
+                    && song.getDuration() == dto.getDuration()
+                    && song.getAlbum().equalsIgnoreCase(dto.getAlbum().trim())
+                    && song.getDate().equals(dto.getDate())
+                    && song.getCategory().getId() == dto.getId_category()){
                 return null;
             }
         }
@@ -140,15 +145,20 @@ public class SongService {
         Song song = songRepository.findById(id).orElseThrow(()
                 -> new RuntimeException("Canción no encontrada"));
 
-        song.setName(s.getName());
-        song.setAlbum(s.getAlbum());
-        song.setArtist(s.getArtist());
-        song.setDuration(s.getDuration());
-        song.setDate(s.getDate());
-        song.setCategory(categoryRepository.findById(s.getId_category()).orElseThrow(()
-                -> new RuntimeException("Categoría no encontrada")));
-        songRepository.save(song);
-
+       if(s.getName().equalsIgnoreCase(song.getName()) && s.getArtist().equalsIgnoreCase(song.getArtist()) &&
+               s.getDuration() == song.getDuration() && s.getAlbum().equalsIgnoreCase(song.getAlbum()) && s.getDate().equals(song.getDate())
+       && s.getId_category() == song.getCategory().getId()){
+           return null;
+        }else {
+           song.setName(s.getName());
+           song.setAlbum(s.getAlbum());
+           song.setArtist(s.getArtist());
+           song.setDuration(s.getDuration());
+           song.setDate(s.getDate());
+           song.setCategory(categoryRepository.findById(s.getId_category()).orElseThrow(()
+                   -> new RuntimeException("Categoría no encontrada")));
+           songRepository.save(song);
+       }
         return s;
     }
 

@@ -114,9 +114,24 @@ section h2 {
     margin-bottom: 10px;
 }
 
+section input{
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 5px;
+}
 section p {
     font-size: 1.2rem;
     margin: 10px 0;
+}
+
+section button{
+    padding: 10px 20px;
+    background-color: #1db954;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 main .arrow {
