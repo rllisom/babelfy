@@ -134,6 +134,9 @@ public class SongService {
 
     @Transactional
     public SongDTO put(long id, SongDTO s){
+
+        System.out.println(s);
+
         Song song = songRepository.findById(id).orElseThrow(()
                 -> new RuntimeException("Canción no encontrada"));
 

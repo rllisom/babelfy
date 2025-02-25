@@ -49,7 +49,7 @@
     <!-- DELETE -->
     <section>
         <div class="box" id="open_PopUp">
-            <h4>¿Estás seguro que deseas eliminar la categoría?</h4>
+            <h4>¿Estás seguro que deseas eliminar la canción?</h4>
             <div class="botones">
             <button id="eliminar">SI</button>
             <button type="button" onclick="mensajeConfirmacion()">NO</button>
@@ -69,15 +69,15 @@
                 <a class="close" onclick="createMenu()"><i class="bi bi-x-circle"></i></a>
                 <h4>Añadir Canción</h4>
                     <p>Nombre:</p>
-                    <input type="text" id="nameSong" placeholder="Nombre de la canción">
+                    <input type="text" id="songName" placeholder="Nombre de la canción">
                     <p>Artista:</p>
-                    <input type="text" id="artistSong" placeholder="Nombre del artista">
+                    <input type="text" id="author" placeholder="Nombre del artista">
                     <p>Duración:</p>
-                    <input type="text" id="durationSong" placeholder="Duración de la canción">
+                    <input type="text" id="duration" placeholder="Duración de la canción">
                     <p>Fecha de salida</p>
-                    <input type="date" id="dateSong" placeholder="Fecha de salida">
+                    <input type="date" id="releaseDate" placeholder="Fecha de salida">
                     <p>Album</p>
-                    <input type="text" id="albumSong" placeholder="Nombre del album">
+                    <input type="text" id="album" placeholder="Nombre del album">
                     <p>Categoría</p>
                     <select id="categorySongOptions">
                        
@@ -102,5 +102,6 @@
 <!-- 
 <script src="../js/scriptSong2.js"></script> -->
 <script src="../js/scriptSongs.js"></script>
+<script src="../js/scriptPutSong.js"></script>
 </body>
 </html>
