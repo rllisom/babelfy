@@ -92,6 +92,49 @@ function abrirMenu(index){
          });
      }
 
+    // Aqui hacemos la scrip del buscar canciones por su nombre que acabmos de crear en el html
+    function searchSong(){
+        const searchValue = document.getElementById('search').value;
+        let url = `http://localhost:9000/songs/`;
+
+        if (!searchValue.trim()) {
+            url = `http://localhost:9000/songs`;
+        } else {
+            url = `http://localhost:9000/songs/searchValue/${searchValue}`;
+        }
+        fetch(url)
+            .then(function(response){
+                if(response.ok){
+                    return response.json();
+                }else{
+                    throw new Error('Error en la llamada a la API: ' + response.statusText);
+                }
+            })
+            .then(function(songs){
+                console.log("Canciones recibidas:", songs);
+                renderSongs(songs);
+            })
+            .catch(function(error){
+                console.error('Error al obtener las canciones:' + error);
+            });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
      //GET BY ID
 
@@ -102,7 +145,7 @@ function abrirMenu(index){
         
 
     }
-
+   
   
         function getSongById(){
             
@@ -150,7 +193,7 @@ function abrirMenu(index){
         }
        
         
-        
+ 
         
         
       

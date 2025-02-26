@@ -1,5 +1,6 @@
 package com.babel.babelfy.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,6 +21,7 @@ public class Category {
     private String name;
 
     @OneToMany(mappedBy = "category")
+    @JsonIgnore
     private List<Song> songs;
 
     public Category(String name, List<Song> songs) {

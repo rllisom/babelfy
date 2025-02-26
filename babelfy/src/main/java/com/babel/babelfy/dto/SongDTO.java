@@ -1,5 +1,6 @@
 package com.babel.babelfy.dto;
 
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class SongDTO {
 
     private long id;
