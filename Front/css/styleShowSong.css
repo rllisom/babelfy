@@ -105,26 +105,30 @@ main h1 {
 }
 
 section {
+    position: relative;
     width: 60%;
+    height: auto;
+    text-align: center;
     margin: 0 auto;
-    margin-top: 30px;
+    margin-top: 10px;
     padding: 20px;
     background-color: #1db954;  
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10%;
 }
 
 section h2 {
-    font-size: 1.6rem;
+    font-size: 1.3rem;
     color: #fff;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     font-weight: 600;
 }
 
 section input {
     width: 100%;
     padding: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 8px;
     transition: border-color 0.3s;
@@ -148,6 +152,8 @@ section select{
 }
 
 section button {
+    position: flex;
+    bottom: 1%;
     padding: 10px 25px;
     background-color: #23954b;
     color: white;
@@ -156,6 +162,7 @@ section button {
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* right: 44%; */
 }
 
 section button:hover {
@@ -170,8 +177,10 @@ section button:hover {
 main .arrow {
     display: inline-block;
     position: relative;
-    top: 30%;
+    top: 35%;
     left: 10px;
+    margin: 5px;
+    margin-top: 10px;
     color: #1db954;
     font-size: 1.5rem;
     transition: transform 0.5s ease;
@@ -180,6 +189,24 @@ main .arrow {
 main .arrow:hover {
     transform: scale(1.20);
 }
+
+main .arrow_put {
+    display: inline-block;
+    position: relative;
+    top: 30%;
+    left: 10px;
+    margin: 5px;
+    margin-top: 10px;
+    color: #1db954;
+    font-size: 1.5rem;
+    transition: transform 0.5s ease;
+}
+
+main .arrow_put:hover {
+    transform: scale(1.20);
+}
+
+
 
 footer {
     background: linear-gradient(to right, #1db954, #191414);

@@ -305,8 +305,11 @@ main h1 {
     position: absolute;
     padding: 30px;
     margin-left: 20%;
-    top: 11.5%; 
+    top: 11%; 
     overflow: hidden;
+    position: fixed;
+    z-index: 1000;
+    box-shadow: 5px 8px 20px rgba(30, 157, 75, 0.5);
 }
 
 .addBoxClass .close {
