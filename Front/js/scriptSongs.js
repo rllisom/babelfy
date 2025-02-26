@@ -92,7 +92,7 @@ function abrirMenu(index){
          });
      }
 
-    // Aqui hacemos la scrip del buscar canciones por su nombre que acabmos de crear en el html
+    //SEARCH
     function searchSong(){
         const searchValue = document.getElementById('search').value;
         let url = `http://localhost:9000/songs/`;
@@ -106,6 +106,7 @@ function abrirMenu(index){
             .then(function(response){
                 if(response.ok){
                     return response.json();
+                    
                 }else{
                     throw new Error('Error en la llamada a la API: ' + response.statusText);
                 }
