@@ -209,12 +209,12 @@ function abrirMenu(index){
         }
         
         categoryData.forEach(category => {
-            if(!(category.name === 'Undefined')){
-                let option = document.createElement('option');
+            
+            let option = document.createElement('option');
             option.value = category.id;
             option.textContent = category.name;
             selectElement.appendChild(option);
-            }
+            
             
         });
 

@@ -38,7 +38,8 @@ public class CategoryController {
     //DELETE
     @DeleteMapping("/{id}")
     public CategoryDTO deleteById (@PathVariable long id){
-        return categoryService.deleteCategory(id);
+        String name = "Sin categoría";
+        return categoryService.deleteCategory(id,name);
     }
 
     //POST

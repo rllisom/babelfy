@@ -97,13 +97,27 @@ public class CategoryService {
 
         return dto;
     }
+    //Find by Name
+    public long findByName(String name){
+        boolean encontrado = false;
+        long id = 0;
+        List<Category> categoryList= categoryRepository.findAll();
+        for (int i = 0; i < categoryList.size() && !encontrado; i++) {
+            if(categoryList.get(i).getName().equalsIgnoreCase(name)){
+                encontrado = true;
+                id = categoryList.get(i).getId();
+            }
+        }
+        return id;
+    }
      //DELETE
      @Transactional
-    public CategoryDTO deleteCategory(long id) {
+    public CategoryDTO deleteCategory(long id, String name) {
         List<Song> list = songRepository.findAll() ;
         Category c;
-        Category undef = categoryRepository.findById(4L).orElseThrow(()
+        Category undef = categoryRepository.findById(findByName(name)).orElseThrow(()
         -> new RuntimeException("Categoría no encontrada"));
+
         c = categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("No existe ese id "));
 
         for (Song s : list){

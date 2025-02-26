@@ -49,7 +49,7 @@ INSERT IGNORE INTO song (date, duration, category_id, album, artist, name) VALUE
 ('2025-12-28', 4, 3, 'Pulse Rhythms', 'Echo Kings', 'Electric Flow'),
 ('2025-10-19', 4, 3, 'Street Echo', 'Rhyme Echo', 'City Dreams'),
 ('2025-11-22', 3, 3, 'Urban Legends', 'Echo Flow', 'Bass Bounce');
-INSERT IGNORE INTO category (id,name) VALUES (4, 'Undefined');
+INSERT IGNORE INTO category (id,name) VALUES (500, 'Sin categoría');
 INSERT IGNORE INTO category (id, name) VALUES (5, 'Jazz');
 INSERT IGNORE INTO song (date, duration, category_id, album, artist, name) VALUES
 ('2025-02-08', 5, 5, 'Smooth Nights', 'The Jazz Quartet', 'Midnight Serenade'),

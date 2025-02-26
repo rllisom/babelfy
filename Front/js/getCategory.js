@@ -47,6 +47,10 @@ function renderSingleCategory(category) {
   
         const li = document.createElement('li');
         li.textContent = song.name;
+        li.onclick = function() {
+            localStorage.setItem('idSong', song.id);
+            window.location.href = 'showSong.html';
+        };
         listElement.appendChild(li);
     });
 }
