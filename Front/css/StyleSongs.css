@@ -240,9 +240,9 @@ main h1 {
     align-items: stretch;
     align-content: space-around;
     z-index: 1000;
-    transform: translateY(-60%);
     margin-left: 25%;
-    position: absolute;
+    top: 36%;
+    position: fixed;
 }
 .box h4{
     color: #121212;
