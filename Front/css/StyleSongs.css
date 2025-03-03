@@ -104,12 +104,18 @@ aside ul li a:hover{
 }
 .search-container i{
     color: #7b7575;
+    width: 20%;
+
+    
 }
 
 .search-container input{
     background-color: #333333;
     border: none;
     color: #fff;
+    width: 100%;
+    padding-left: 5px;
+    
 }
 
 .search-container input:focus {
