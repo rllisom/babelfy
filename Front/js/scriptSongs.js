@@ -70,7 +70,14 @@ function abrirMenu(index){
  function renderSongs(songs) {
          var container = document.getElementById('song-container');
          container.innerHTML = '';
+         
          songs.forEach(function(song,index) {
+
+            if (song.category == undefined) {
+                idCategory = song.id_category
+            } else {
+                idCategory = song.category.id   
+            }
              var songElement = document.createElement('div');
              songElement.classList.add('lineSong');
              songElement.innerHTML =
@@ -82,8 +89,8 @@ function abrirMenu(index){
              <i class="bi bi-three-dots"></i></button>
              </li>
              <ul id="menu${index}" class="submenu">
-                    <li><a onclick="getSong(${song.id},${song.id_category})">Mostrar información</a></li>
-                    <li><a onclick="putSong(${song.id},${song.id_category})">Cambiar información</a></li>
+                    <li><a onclick="getSong(${song.id},${idCategory})">Mostrar información</a></li>
+                    <li><a onclick="putSong(${song.id},${idCategory})">Cambiar información</a></li>
                     <li>
                         <a type="button" onclick="mensajeConfirmacion(${song.id})">Eliminar canción</a>
                     </li>
@@ -119,22 +126,6 @@ function abrirMenu(index){
                 console.error('Error al obtener las canciones:' + error);
             });
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
      //GET BY ID
