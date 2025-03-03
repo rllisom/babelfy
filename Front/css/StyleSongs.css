@@ -90,6 +90,42 @@ aside ul li a:hover{
 }
 
 /* MAIN */
+
+/* Contenedor del campo de búsqueda */
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    background-color: #333333;
+    width: 15%;
+    margin: 0 auto ;
+    border-radius: 20px;
+    padding: 8px;
+}
+.search-container i{
+    color: #7b7575;
+    width: 20%;
+
+    
+}
+
+.search-container input{
+    background-color: #333333;
+    border: none;
+    color: #fff;
+    width: 100%;
+    padding-left: 5px;
+    
+}
+
+.search-container input:focus {
+  
+    outline: none; /* Elimina el borde blanco o azul que aparece en algunos navegadores */
+}
+.search-container input::placeholder {
+    color: #b3b3b3;
+}
+
 main {
     flex: 1 1 80%;
     min-height: 100vh;

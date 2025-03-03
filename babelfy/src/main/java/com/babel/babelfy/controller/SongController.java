@@ -2,7 +2,9 @@ package com.babel.babelfy.controller;
 
 import com.babel.babelfy.dto.SongDTO;
 import com.babel.babelfy.model.Song;
+import com.babel.babelfy.repository.SongRepository;
 import com.babel.babelfy.service.SongService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import com.babel.babelfy.dto.ResponseSongDTO;
@@ -22,13 +24,19 @@ import java.util.List;
 public class SongController {
 
     private final SongService songService;
+    private final SongRepository songRepository;
 
     //GET ALL
     @GetMapping("")
     public List<SongDTO> getAll (){
         return songService.getAll();
     }
-
+    //SEARCH
+    @Transactional
+    @GetMapping ("/searchValue/{name}")
+    public List<Song> searchSongs(@PathVariable String name) {
+        return songRepository.findByName(name);
+    }
     //DELETE
     @DeleteMapping("/{id}")
     public SongDTO delete(@PathVariable long id){
