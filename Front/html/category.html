@@ -7,7 +7,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
-   
     <header>
         <div class="contTitle">
             <h3>Pedrafy</h3>
@@ -16,7 +15,6 @@
     </header>
 
     <div class="content">
-   
         <aside>
             <ul>
                 <li><a href="inicio.html">Inicio</a></li>
@@ -24,31 +22,53 @@
                 <li><a href="getSongs.html">Canciones</a></li>
             </ul>
         </aside>
-    
-
         <main>
             <h1>Categorías</h1>
+            <!-- GET ALL -->
             <section class="categories">
                 <div  id="categories-container">
                     <!-- Aquí se inyectarán las categorías dinámicamente desde JavaScript -->
                 </div>
             </section>
-
+            <!-- DELETE -->
             <section>
                 <div class="box" id="open_PopUp">
                     <h4>¿Estás seguro que deseas eliminar la categoría?</h4>
                         <div class="botones">
                             <button id="eliminar">SI</button>
                             <button type="button" onclick="mensajeConfirmacion()">NO</button>
-                         </div>
+                        </div>
                 </div>
             </section>
             
+            <!-- POST -->
             <section class="newCategoryContainer">
                 <div class="newCategory">
-                    <a href="newCategory.html"><i class="bi bi-plus-circle"></i></a>
+                    <a onclick="openCreate()"><i class="bi bi-plus-circle"></i></a>
                 </div>
             </section> 
+            <section>
+                <div id="newCatSection" class="newCategorySection">
+                    <a class="close" onclick="openCreate()"><i class="bi bi-x-circle"></i></a>
+                    <h2>Nombre</h2>
+                    <input type="text" id="newName" placeholder=" Introduzca el nombre" required minlength="1" maxlength="20">
+                    <br>
+                    <p id="message"></p>
+                    <button onclick="createCategory()">Crear</button>
+                </div>    
+            </section>
+            <!-- PUT -->
+            <section>
+                <div id="modifyCatSection" class="newCategorySection">
+                <a class="close" onclick="openModify()"><i class="bi bi-x-circle"></i></a>
+                <h2>Nuevo nombre</h2>
+                <input type="text" class="dataAPI" id="updateName" 
+                placeholder="Introduzca el nombre" name = "name" required minlength="1" maxlength="20">
+                <button onclick="guardarNombre()">Cambiar</button>
+                <p id="messageUpdate"></p>
+                </div>
+                
+            </section>
         </main>
         
     </div>

@@ -1,28 +1,22 @@
 package com.babel.babelfy.dto;
 
-import com.babel.babelfy.model.Artist;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-import java.util.List;
-
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
-public class SongDTO {
+public class GetSongDTO {
 
     private long id;
     private String name;
     private int duration;
-    private List<Long> artistDTOList;
+    private String artist;
     private String album;
-    private LocalDate date;
-    private long id_category;
+    private String categoryName;
+
 
 }

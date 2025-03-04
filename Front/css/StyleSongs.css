@@ -120,7 +120,7 @@ aside ul li a:hover{
 
 .search-container input:focus {
   
-    outline: none; /* Elimina el borde blanco o azul que aparece en algunos navegadores */
+    outline: none; 
 }
 .search-container input::placeholder {
     color: #b3b3b3;

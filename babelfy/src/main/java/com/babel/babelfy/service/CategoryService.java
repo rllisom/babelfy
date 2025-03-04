@@ -7,12 +7,8 @@ import com.babel.babelfy.model.Song;
 import com.babel.babelfy.repository.CategoryRepository;
 import com.babel.babelfy.repository.SongRepository;
 import jakarta.transaction.Transactional;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,7 +31,8 @@ public class CategoryService {
                 list.add(new Song(s.getId(),
                         s.getName(),
                         s.getDuration(),
-                        s.getArtist(),
+                        songRepository.findById(s.getId_artist()).orElseThrow(()
+                                -> new RuntimeException("No se ha encontrado el artista")).getArtist(),
                         s.getAlbum(),
                         s.getDate(),
                         categoryRepository.findById(s.getId_category()).orElse(null)));
@@ -53,7 +50,7 @@ public class CategoryService {
                 list.add(new SongDTO(s.getId(),
                         s.getName(),
                         s.getDuration(),
-                        s.getArtist(),
+                        s.getArtist().getId(),
                         s.getAlbum(),
                         s.getDate(),
                         c.getId()));
@@ -68,7 +65,7 @@ public class CategoryService {
                 .id_category(song.getCategory() != null ? song.getCategory().getId() : null)
                 .album(song.getAlbum())
                 .duration(song.getDuration())
-                .artist(song.getArtist())
+                .id_artist(song.getArtist().getId())
                 .build();
 
 
@@ -80,7 +77,8 @@ public class CategoryService {
                 .name(songDTO.getName())
                 .date(songDTO.getDate())
                 .album(songDTO.getAlbum())
-                .artist(songDTO.getArtist())
+                .artist(songRepository.findById(songDTO.getId_artist()).orElseThrow(()
+                        -> new RuntimeException("No se ha encontrado el artista")).getArtist())
                 .duration(songDTO.getDuration())
 
                 .build();
