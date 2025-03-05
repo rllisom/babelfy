@@ -1,3 +1,4 @@
+//MENU
 function abrirMenu(b){
     var a = document.getElementById("menuDesplegable"+ b);
     if(a.style.display == "block"){
@@ -18,6 +19,37 @@ function abrirMenu(b){
         a.style.display = "flex";
     }
  }
+
+function openCreate(){
+    let newCat = document.getElementById("newCatSection");
+    if(newCat.style.display == "block"){
+        newCat.style.display = "none";
+    }else{
+        newCat.style.display = "block";
+    }
+}
+
+async function openModify(){
+    let newCat = document.getElementById("modifyCatSection");
+    const id = localStorage.getItem('idCategoria');
+    const categoryResponse = await fetch(`http://localhost:9000/categories/`+id);
+    const categoryData = await categoryResponse.json();
+
+        if (!categoryData || categoryData.length === 0) {
+            console.error('No se encontró la categoría');
+            return;
+        }else{
+          console.log('Categoría encontrada:', categoryData);
+        }
+        document.getElementById("updateName").value = categoryData.name
+    if(newCat.style.display == "block"){
+        newCat.style.display = "none";
+    }else{
+        newCat.style.display = "block";
+    }
+}
+
+//CHARGE
 
  document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('name') && document.getElementById('lista')) {
@@ -62,7 +94,7 @@ function showCategory(id) {
 
 function modifyCategory(id) {
     localStorage.setItem('idCategoria', id);
-    window.location.href = 'modifyCategory.html';
+    openModify();
 }
 
 function renderCategory(categories) {
@@ -125,13 +157,13 @@ function renderCategory(categories) {
     }
 
     //PUT
-    function guardarNombre(){
-    const id = localStorage.getItem('idCategoria');
-    let newName = document.getElementById("newName").value;
-    const apiUrl = `http://localhost:9000/categories/${id}`;
-    const message = document.getElementById("message");
+    async function guardarNombre(){
+    const id = localStorage.getItem('idCategoria');    
+    let updateName = document.getElementById("updateName").value;
+    const apiUrl = `http://localhost:9000/categories/`+id;
+    const message = document.getElementById("messageUpdate");
 
-    if(!newName.trim()){
+    if(!updateName.trim()){
         message.innerHTML = "Por favor, ingrese un nombre";
         return;
     }else{
@@ -140,22 +172,22 @@ function renderCategory(categories) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({name: newName})
+            body: JSON.stringify({name: updateName})
         })
         .then(response => {
             if (response.ok) {
-                return response.text(); // Intentamos obtener texto en lugar de JSON
+                return response.text(); 
             } else {
                 throw new Error('Error al actualizar el nombre');
             }
         })
         .then(text => {
             if (!text) {
-                // Si el backend devuelve `null` (que se traduce en una cadena vacía), mostramos el mensaje
+               
                 alert('Fallo al actualizar el nombre. Ya existe');
                 return;
             }
-            return JSON.parse(text); // Convertimos solo si hay contenido JSON
+            return JSON.parse(text); 
         })
         .then(data => {
             if (data) {
