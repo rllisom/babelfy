@@ -7,15 +7,7 @@ import com.babel.babelfy.service.SongService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import com.babel.babelfy.dto.ResponseSongDTO;
-import com.babel.babelfy.dto.SongDTO;
-import com.babel.babelfy.model.Category;
-import com.babel.babelfy.service.SongService;
-import jakarta.persistence.*;
-import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RequestMapping("/songs")
@@ -34,8 +26,8 @@ public class SongController {
     //SEARCH
     @Transactional
     @GetMapping ("/searchValue/{name}")
-    public List<Song> searchSongs(@PathVariable String name) {
-        return songRepository.findByName(name);
+    public List<SongDTO> searchSongs(@PathVariable String name) {
+        return songService.getSearch(name);
     }
     //DELETE
     @DeleteMapping("/{id}")

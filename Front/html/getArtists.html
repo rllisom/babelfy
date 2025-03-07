@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Categorías</title>
-    <link rel="stylesheet" href="../css/styleCategory.css">
+    <link rel="stylesheet" href="../css/styleArtist.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
@@ -24,48 +24,48 @@
             </ul>
         </aside>
         <main>
-            <h1>Categorías</h1>
+            <h1>Artistas</h1>
+            <!-- POST -->
+            <section class="newArtistContainer">
+                <div class="newArtist">
+                    <a onclick="openCreateArtist()"><i class="bi bi-plus-circle"></i></a>
+                </div>
+            </section> 
+            <section>
+                <div id="newArtSection" class="newArtistSection">
+                    <a class="close" onclick="openCreateArtist()"><i class="bi bi-x-circle"></i></a>
+                    <h2>Nombre</h2>
+                    <input type="text" id="newNameArtist" placeholder=" Introduzca el nombre" required minlength="1" maxlength="20">
+                    <br>
+                    <p id="messageArtist"></p>
+                    <button onclick="createArtist()">Crear</button>
+                </div>    
+            </section>
             <!-- GET ALL -->
-            <section class="categories">
-                <div  id="categories-container">
+            <section class="">
+                <div  id="artists-container" >
                     <!-- Aquí se inyectarán las categorías dinámicamente desde JavaScript -->
                 </div>
             </section>
             <!-- DELETE -->
             <section>
-                <div class="box" id="open_PopUp">
-                    <h4>¿Estás seguro que deseas eliminar la categoría?</h4>
+                <div class="box" id="openArtistDelete">
+                    <h4>¿Estás seguro que deseas eliminar al artista?</h4>
                         <div class="botones">
                             <button id="eliminar">SI</button>
-                            <button type="button" onclick="mensajeConfirmacion()">NO</button>
+                            <button type="button" onclick="openArtistDelete()">NO</button>
                         </div>
                 </div>
             </section>
             
-            <!-- POST -->
-            <section class="newCategoryContainer">
-                <div class="newCategory">
-                    <a onclick="openCreate()"><i class="bi bi-plus-circle"></i></a>
-                </div>
-            </section> 
-            <section>
-                <div id="newCatSection" class="newCategorySection">
-                    <a class="close" onclick="openCreate()"><i class="bi bi-x-circle"></i></a>
-                    <h2>Nombre</h2>
-                    <input type="text" id="newName" placeholder=" Introduzca el nombre" required minlength="1" maxlength="20">
-                    <br>
-                    <p id="message"></p>
-                    <button onclick="createCategory()">Crear</button>
-                </div>    
-            </section>
             <!-- PUT -->
             <section>
-                <div id="modifyCatSection" class="newCategorySection">
-                <a class="close" onclick="openModify()"><i class="bi bi-x-circle"></i></a>
+                <div id="modifyArtSection" class="newArtistSection">
+                <a class="close" onclick="openModifyArtist()"><i class="bi bi-x-circle"></i></a>
                 <h2>Nuevo nombre</h2>
-                <input type="text" class="dataAPI" id="updateName" 
+                <input type="text" class="dataAPI" id="updateNameArt" 
                 placeholder="Introduzca el nombre" name = "name" required minlength="1" maxlength="20">
-                <button onclick="guardarNombre()">Cambiar</button>
+                <button onclick="guardarNombreArtist()">Cambiar</button>
                 <p id="messageUpdate"></p>
                 </div>
                 
@@ -82,6 +82,6 @@
         </div>
     </footer>
     
-    <script src="../js/script.js"></script>
+    <script src="../js/scriptArtist.js"></script>
 </body>
 </html>

@@ -4,21 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.util.List;
 
-import java.time.LocalDate;
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RequestSongDTO {
+
+public class ArtistDTO {
 
     private long id;
     private String name;
-    private int duration;
-    private String artist;
-    private String album;
-    private LocalDate date;
-    private long id_category;
-
+    private List<Long> id_songDTO;
 
 }

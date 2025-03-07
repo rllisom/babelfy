@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Función para obtener y renderizar una categoría con sus canciones
 function getCategory() {
     const idCategoria = localStorage.getItem('idCategoria'); // Obtenemos el ID de la categoría
-  
+
 
     const apiUrl = `http://localhost:9000/categories/${idCategoria}`;
 
@@ -44,7 +44,7 @@ function renderSingleCategory(category) {
     listElement.innerHTML = ''; // Limpiar la lista antes de agregar nuevas canciones
 
     songs.forEach(song => {
-  
+
         const li = document.createElement('li');
         li.textContent = song.name;
         li.onclick = function() {
