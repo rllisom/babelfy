@@ -21,6 +21,7 @@
                 <li><a href="inicio.html">Inicio</a></li>
                 <li><a href="category.html">Categorías</a></li>
                 <li><a href="getSongs.html">Canciones</a></li>
+                <li><a href="getArtists.html">Artistas</a></li>
             </ul>
         </aside>
 
@@ -39,15 +40,14 @@
                     name="album" required minlength="1" maxlength="20">
 
                     <h2>Autor</h2>
-                    <input type="text" id="author" placeholder="Introduzca el artista"
-                    name="artist" required minlength="1" maxlength="20">
+                    <select id="artistSongOptions" multiple></select>
 
                     <h2>Fecha de salida</h2>
                     <input type="date" id="releaseDate" name="date" required>
 
                     <h2>Categoría </h2>
                     <select id="categorySongOptions"></select>
-                   
+                
                     <h2>Duración</h2>
                     <input type="number" id="duration" placeholder="Introduzca la duración"
                     name="duration" required minlength="1" maxlength="20">

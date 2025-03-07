@@ -1,5 +1,6 @@
 package com.babel.babelfy.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,7 +25,13 @@ public class Song {
     private String name;
     private int duration;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "song_list_artist",
+            joinColumns = @JoinColumn(name = "song_list_id"),
+            inverseJoinColumns = @JoinColumn(name = "list_artist_id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"song_list_id", "list_artist_id"})
+    )
     private List<Artist> listArtist;
 
     private String album;

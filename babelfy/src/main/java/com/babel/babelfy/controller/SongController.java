@@ -26,8 +26,8 @@ public class SongController {
     //SEARCH
     @Transactional
     @GetMapping ("/searchValue/{name}")
-    public List<Song> searchSongs(@PathVariable String name) {
-        return songRepository.findByName(name);
+    public List<SongDTO> searchSongs(@PathVariable String name) {
+        return songService.getSearch(name);
     }
     //DELETE
     @DeleteMapping("/{id}")

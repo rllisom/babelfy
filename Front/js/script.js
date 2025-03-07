@@ -7,7 +7,7 @@ function abrirMenu(b){
         a.style.display = "block";
     }
 }
- function mensajeConfirmacion(id){
+function mensajeConfirmacion(id){
     var a = document.getElementById("open_PopUp");
     var button = document.getElementById("eliminar");
     button.onclick = function() {
@@ -18,7 +18,7 @@ function abrirMenu(b){
     }else{
         a.style.display = "flex";
     }
- }
+}
 
 function openCreate(){
     let newCat = document.getElementById("newCatSection");
@@ -39,7 +39,7 @@ async function openModify(){
             console.error('No se encontró la categoría');
             return;
         }else{
-          console.log('Categoría encontrada:', categoryData);
+        console.log('Categoría encontrada:', categoryData);
         }
         document.getElementById("updateName").value = categoryData.name
     if(newCat.style.display == "block"){
@@ -51,7 +51,7 @@ async function openModify(){
 
 //CHARGE
 
- document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('name') && document.getElementById('lista')) {
         getCategory(); 
     } else if (document.getElementById('categories-container')) {
@@ -127,7 +127,7 @@ function renderCategory(categories) {
     console.log("Categorías renderizadas correctamente.");
 }
 
- 
+
     //DELETE
     function eliminarCategoria(id) {
         // Asegúrate de tener la URL correcta para la API
@@ -183,7 +183,7 @@ function renderCategory(categories) {
         })
         .then(text => {
             if (!text) {
-               
+            
                 alert('Fallo al actualizar el nombre. Ya existe');
                 return;
             }
@@ -208,12 +208,10 @@ function renderCategory(categories) {
 
 
  //POST
- function createCategory(){
+function createCategory(){
     const apiUrl = `http://localhost:9000/categories`;
     let newName = document.getElementById("newName").value;
     const message = document.getElementById("message");
- 
- 
     if(!newName.trim()){
         message.innerHTML = "Por favor, ingrese un nombre";
         return;

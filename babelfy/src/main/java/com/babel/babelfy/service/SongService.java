@@ -1,7 +1,6 @@
 package com.babel.babelfy.service;
 
 
-import com.babel.babelfy.dto.ArtistDTO;
 import com.babel.babelfy.dto.SongDTO;
 import com.babel.babelfy.model.Artist;
 import com.babel.babelfy.model.Song;
@@ -24,7 +23,7 @@ public class SongService {
     private final ArtistRepository artistRepository;
 
     //BUILDER
-
+    @Transactional
     public SongDTO songToSongDTO(Song s){
 
         List<Long> artistId = new ArrayList<>();
@@ -42,7 +41,7 @@ public class SongService {
                 categoryRepository.findById(s.getCategory().getId()).orElseThrow(()
                         -> new RuntimeException("Categoría no encontrada")).getId());
     }
-
+    @Transactional
     public SongDTO buildSongDTO (Song song){
         List<Long> artistDTOList = new ArrayList<Long>();
         for (Artist artist : song.getListArtist()) {
@@ -60,15 +59,20 @@ public class SongService {
                 .build();
 
     }
+    @Transactional
     private Song convertToSong(SongDTO songDTO) {
 
         System.out.println("ID de categoría recibido: " + songDTO.getId_category());
-
-        List<Artist> artistList = new ArrayList<Artist>();
+        System.out.println(songDTO);
+        List<Artist> artistList = new ArrayList<>();
 
         for (long s : songDTO.getArtistDTOList()){
             artistList.add(artistRepository.findById(s).orElseThrow(()
                     -> new RuntimeException("Artista no encontrado")));
+        }
+
+        for (Artist a : artistList) {
+            System.out.println(a.getName());
         }
 
 
@@ -85,20 +89,6 @@ public class SongService {
                 .build();
     }
 
-    public ArtistDTO converToArtistDTO (Artist a){
-
-        List<SongDTO> songDTOList = new ArrayList<SongDTO>();
-
-        for (Song song : a.getSongList()){
-            songDTOList.add(buildSongDTO(song));
-        }
-
-        return ArtistDTO.builder()
-                .id(a.getId())
-                .name(a.getName())
-                .songDTOList(songDTOList)
-                .build();
-    }
 
     //GET ALL
     @Transactional
@@ -111,6 +101,17 @@ public class SongService {
         }
 
         return listDTO;
+    }
+
+    //SEARCH
+    public List<SongDTO> getSearch(String name){
+        List<Song> songList = songRepository.findByName(name);
+        List<SongDTO> songDTOList = new ArrayList<>();
+
+        for (Song s : songList){
+            songDTOList.add(buildSongDTO(s));
+        }
+        return  songDTOList;
     }
 
     //DELETE
@@ -134,6 +135,7 @@ public class SongService {
     }
 
     //POST
+    @Transactional
     public SongDTO add(SongDTO dto){
         Song s;
         String name;
@@ -163,6 +165,9 @@ public class SongService {
         }
 
         s= convertToSong(dto);
+        for (Artist a: s.getListArtist()){
+           a.getSongList().add(s);
+        }
         songRepository.save(s);
         return dto;
     }
@@ -172,36 +177,38 @@ public class SongService {
 
     @Transactional
     public SongDTO put(long id, SongDTO s){
-
-        System.out.println(s);
-
         Song song = songRepository.findById(id).orElseThrow(()
                 -> new RuntimeException("Canción no encontrada"));
+        List<Artist> artistList = new ArrayList<>();
+        for( long i : s.getArtistDTOList()){
+           artistList.add(artistRepository.findById(i).orElseThrow(()->
+                   new RuntimeException("Aritsta no encontrdado")));
+        }
 
-       if(s.getName().equalsIgnoreCase(song.getName())
-               && songRepository.findById(s.getId_artist()).orElseThrow(()
-               -> new RuntimeException("Artista no encontrado")).getName().equalsIgnoreCase(song.getArtist().getName())
-               && s.getDuration() == song.getDuration() && s.getAlbum().equalsIgnoreCase(song.getAlbum()) && s.getDate().equals(song.getDate())
-               && s.getId_category() == song.getCategory().getId()){
-           return null;
-        }else {
-           song.setName(s.getName());
-           song.setAlbum(s.getAlbum());
-           song.setArtist(songRepository.findById(s.getId_artist()).orElseThrow(()
-                   -> new RuntimeException("Artista no encontrado")).getArtist());
-           song.setDuration(s.getDuration());
-           song.setDate(s.getDate());
-           song.setCategory(categoryRepository.findById(s.getId_category()).orElseThrow(()
-                   -> new RuntimeException("Categoría no encontrada")));
-           songRepository.save(song);
-       }
+        for ( Artist a : artistList) {
+            for (Artist b : song.getListArtist()) {
+                if(a.getId() == b.getId()) {
+
+                    if (s.getName().equalsIgnoreCase(song.getName())
+                            && a.getName().equalsIgnoreCase(b.getName())
+                            && s.getDuration() == song.getDuration() && s.getAlbum().equalsIgnoreCase(song.getAlbum()) && s.getDate().equals(song.getDate())
+                            && s.getId_category() == song.getCategory().getId()) {
+                        return null;
+                    } else {
+                        song.setName(s.getName());
+                        song.setAlbum(s.getAlbum());
+                        song.setListArtist(artistList);
+                        song.setDuration(s.getDuration());
+                        song.setDate(s.getDate());
+                        song.setCategory(categoryRepository.findById(s.getId_category()).orElseThrow(()
+                                -> new RuntimeException("Categoría no encontrada")));
+                        songRepository.save(song);
+                    }
+                }else{
+                    return null;
+                }
+            }
+        }
         return s;
     }
-
-
-
-
-
-
-
 }

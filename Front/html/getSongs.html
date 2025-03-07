@@ -26,6 +26,7 @@
                 <li><a href="inicio.html">Inicio</a></li>
                 <li><a href="category.html">Categorías</a></li>
                 <li><a href="getSongs.html">Canciones</a></li>
+                <li><a href="getArtists.html">Artistas</a></li>
             </ul>
         </aside>
 
@@ -49,7 +50,7 @@
                         <a onclick="createMenu()"><i class="bi bi-plus-circle"></i></a>
                     </div>
                 </section>
-                <!--Listado de canciones con su submenú-->
+                <!--GET ALL-->
                 <section>
                     <div id="song-container">
 
@@ -80,8 +81,7 @@
                         <input type="text" id="songName" placeholder="Nombre de la canción" required minlength="1"
                             maxlength="30">
                         <p>Artista:</p>
-                        <input type="text" id="author" placeholder="Nombre del artista" required minlength="1"
-                            maxlength="30">
+                        <select id="artistSongOptions" multiple></select>
                         <p>Duración:</p>
                         <input type="number" id="duration" placeholder="Duración de la canción" required minlength="1"
                             maxlength="30">

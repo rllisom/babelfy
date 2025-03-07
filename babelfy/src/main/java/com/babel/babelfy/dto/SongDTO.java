@@ -1,7 +1,5 @@
 package com.babel.babelfy.dto;
 
-import com.babel.babelfy.model.Artist;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,9 +12,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class SongDTO {
-
     private long id;
     private String name;
     private int duration;
@@ -26,3 +22,4 @@ public class SongDTO {
     private long id_category;
 
 }
+

@@ -3,6 +3,7 @@ package com.babel.babelfy.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Artist {
@@ -20,7 +22,7 @@ public class Artist {
 
     private String name;
 
-    @ManyToMany(mappedBy = "artist")
+    @ManyToMany(mappedBy = "listArtist", fetch = FetchType.EAGER)
     private List<Song> songList;
 
 
