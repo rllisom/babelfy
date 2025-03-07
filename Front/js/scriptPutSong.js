@@ -36,8 +36,6 @@ async function renderSingleSong(song) {
     const idCategoria = localStorage.getItem('idCategoria');
 
     await renderCategoryOptions()
-    await renderArtistOptions()
-        .then(() => {
             try {
                 console.log("Canción obtenida:", song);
 
@@ -46,21 +44,9 @@ async function renderSingleSong(song) {
                 document.getElementById('releaseDate').value = song.date;
                 document.getElementById('duration').value = song.duration;
                 document.getElementById("categorySongOptions").value = song.id_category;
-
-                let selectElement = document.getElementById('artistSongOptions');
-                let selectedArtists = song.artistDTOList; 
-        
-                Array.from(selectElement.options).forEach(option => {
-                    if (selectedArtists.includes(parseInt(option.value))) {
-                        option.selected = true;
-                    }
-                });
-                localStorage.setItem('idArtists', JSON.stringify(selectedArtists));
-
             } catch (error) {
                 console.error(' Error al renderizar la canción:', error);
             }
-        });
 
 
 
@@ -86,18 +72,11 @@ function saveSong() {
     let dateSong = document.getElementById("releaseDate").value;
     let albumSong = document.getElementById("album").value;
 
-    let selectElement = document.getElementById("artistSongOptions");
-    let selectedArtists = [];
-    Array.from(selectElement.selectedOptions).forEach(option => {
-        selectedArtists.push(option.value);
-    });
-
-    localStorage.setItem('idArtists', JSON.stringify(selectedArtists));
     
     const apiUrl = `http://localhost:9000/songs/${id}`;
 
 
-    if (nameSong.trim() === "" || selectedArtists.length === 0 || durationSong.trim() === "" || dateSong.trim() === "" || albumSong.trim() === "") {
+    if (nameSong.trim() === "" || durationSong.trim() === "" || dateSong.trim() === "" || albumSong.trim() === "") {
         alert('No pueden haber campos vacíos');
         window.location.href = 'putSong.html';
 
@@ -106,7 +85,6 @@ function saveSong() {
 
         const saveSong = {
             name: nameSong,
-            artistDTOList: selectedArtists,
             duration: durationSong,
             id_category: idCategory,
             date: dateSong,

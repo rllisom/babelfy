@@ -110,6 +110,7 @@ public class ArtistService {
     @Transactional
     public ArtistDTO put(ArtistDTO artistDTO){
         boolean find = false;
+        System.out.println(artistDTO);
         Artist artist = artistRepository.findById(artistDTO.getId()).orElseThrow(
                 () -> new RuntimeException("Artista no encontrado"));
         List<Artist> artistList = artistRepository.findAll();

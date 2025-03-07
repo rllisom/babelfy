@@ -294,14 +294,12 @@ async function renderArtistOptions() {
     }
     console.log('Artistas recibidos:', artistData);
     let selectElement = document.getElementById('artistSongOptions');
-    selectElement.innerHTML = '';
-    if (window.location.pathname.endsWith('putSong.html')) {
-    } else {
+    selectElement.innerHTML = ''; 
         let defaultOption = document.createElement('option');
         defaultOption.value = "";
         defaultOption.textContent = "Seleccion un artista";
         selectElement.appendChild(defaultOption);
-    }
+    
 
     artistData.forEach(artist => {        
         let option = document.createElement('option');

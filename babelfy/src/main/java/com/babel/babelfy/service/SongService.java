@@ -180,35 +180,29 @@ public class SongService {
         Song song = songRepository.findById(id).orElseThrow(()
                 -> new RuntimeException("Canción no encontrada"));
         List<Artist> artistList = new ArrayList<>();
-        for( long i : s.getArtistDTOList()){
-           artistList.add(artistRepository.findById(i).orElseThrow(()->
-                   new RuntimeException("Aritsta no encontrdado")));
+        for( Artist a : song.getListArtist()){
+           artistList.add(a);
         }
 
-        for ( Artist a : artistList) {
-            for (Artist b : song.getListArtist()) {
-                if(a.getId() == b.getId()) {
 
-                    if (s.getName().equalsIgnoreCase(song.getName())
-                            && a.getName().equalsIgnoreCase(b.getName())
-                            && s.getDuration() == song.getDuration() && s.getAlbum().equalsIgnoreCase(song.getAlbum()) && s.getDate().equals(song.getDate())
-                            && s.getId_category() == song.getCategory().getId()) {
-                        return null;
-                    } else {
-                        song.setName(s.getName());
-                        song.setAlbum(s.getAlbum());
-                        song.setListArtist(artistList);
-                        song.setDuration(s.getDuration());
-                        song.setDate(s.getDate());
-                        song.setCategory(categoryRepository.findById(s.getId_category()).orElseThrow(()
-                                -> new RuntimeException("Categoría no encontrada")));
-                        songRepository.save(song);
-                    }
-                }else{
-                    return null;
-                }
-            }
+
+        if (s.getName().equalsIgnoreCase(song.getName())
+                && s.getDuration() == song.getDuration()
+                && s.getAlbum().equalsIgnoreCase(song.getAlbum())
+                && s.getDate().equals(song.getDate())
+                && s.getId_category() == song.getCategory().getId()) {
+
+            return null;
+        } else {
+            song.setName(s.getName());
+            song.setAlbum(s.getAlbum());
+            song.setListArtist(artistList);
+            song.setDuration(s.getDuration());
+            song.setDate(s.getDate());
+            song.setCategory(categoryRepository.findById(s.getId_category()).orElseThrow(()
+                    -> new RuntimeException("Categoría no encontrada")));
+            songRepository.save(song);
+            return s;
         }
-        return s;
     }
 }

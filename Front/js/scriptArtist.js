@@ -145,33 +145,45 @@ async function renderSingleArtist(artist){
     const nameElement = document.getElementById('name');
     const listElement = document.getElementById('lista');
     var li;
+    var empty = true;
     nameElement.innerText = artist.name;
     
     const songResponse = await fetch(`http://localhost:9000/songs`);
     if (!songResponse.ok) throw new Error("Error al obtener las canciones");          
     const songData =  await songResponse.json();
-
+    console.log(songData)
+    console.log(artist)
     
-    if (!songData || songData.length === 0) {
-        listElement.innerHTML = '<li>No hay canciones disponibles</li>';
-        return;
+    if(artist.id_songDTO.length == 0){
+        li = document.createElement(li);
+        li.innerHTML = 'Este artista no tiene canciones aún...';
+        empty = false;
+        listElement.appendChild(li);   
+    }else{
+        if (!songData || songData.length === 0) {
+            listElement.innerHTML = '<li>No hay canciones disponibles</li>';
+            return;
+        }else{
+            listElement.innerHTML = '';
+            songData.forEach(song => {
+                if(song.artistDTOList.length > 0){
+                    song.artistDTOList.forEach(i => {
+                        if(artist.id == i){
+                            li = document.createElement('li');
+                            li.textContent = song.name;
+                            li.onclick = function() {
+                                localStorage.setItem('idSong', song.id);
+                                window.location.href = 'showSong.html';
+                            };
+                            listElement.appendChild(li); 
+                        }  
+                    });     
+                }
+            });  
+        }
     }
-    listElement.innerHTML = '';
-    songData.forEach(song => {
-        song.artistDTOList.forEach(i => {
-            if(artist.id == i){
-                li = document.createElement('li');
-                li.textContent = song.name;
-                li.onclick = function() {
-                    localStorage.setItem('idSong', song.id);
-                    window.location.href = 'showSong.html';
-                };
-                listElement.appendChild(li);       
-            }else{
-                listElement.innerHTML = "Este artista no tiene canciones aún...";    
-            }    
-        });
-    });
+    
+    
 }
 
 //DELETE
@@ -261,19 +273,23 @@ function modifyArtist(id) {
 async function guardarNombreArtist(){
     const id = localStorage.getItem('idArtist');    
     let updateNameArt = document.getElementById("updateNameArt").value;
-    const apiUrl = `http://localhost:9000/artists/`+id;
+    const apiUrl = `http://localhost:9000/artists/${id}`;
     const message = document.getElementById("messageUpdate");
 
-    if(!updateName.trim()){
+    if(!updateNameArt.trim()){
         message.innerHTML = "Por favor, ingrese un nombre";
         return;
     }else{
+        const modArtist = {
+            id: id,
+            name: updateNameArt
+        }
         fetch(apiUrl, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({name: updateNameArt})
+            body: JSON.stringify(modArtist)
         })
         .then(response => {
             if (response.ok) {
