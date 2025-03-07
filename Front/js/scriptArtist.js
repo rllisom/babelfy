@@ -32,6 +32,27 @@ function openCreateArtist(){
     }
 }
 
+async function openModifyArtist(){
+    let newCat = document.getElementById("modifyArtSection");
+    const id = localStorage.getItem('idArtist');
+    const artistResponse = await fetch(`http://localhost:9000/artists/`+id);
+    const artistData = await artistResponse.json();
+
+        if (!artistData || artistData.length === 0) {
+            console.error('No se encontró al artista');
+            return;
+        }else{
+        console.log('Artista encontrado:', artistData);
+        }
+        document.getElementById("updateNameArt").value = artistData.name
+    if(newCat.style.display == "block"){
+        newCat.style.display = "none";
+    }else{
+        newCat.style.display = "block";
+    }
+}
+
+
 //CHARGE
 document.addEventListener('DOMContentLoaded', function(){
     if(document.getElementById('artists-container')){
@@ -227,4 +248,61 @@ function createArtist(){
             alert('Error al crear al artista');
         });
     }
+}
+
+//PUT
+
+function modifyArtist(id) {
+    localStorage.setItem('idArtist', id);
+    openModifyArtist();
+}
+
+
+async function guardarNombreArtist(){
+    const id = localStorage.getItem('idArtist');    
+    let updateNameArt = document.getElementById("updateNameArt").value;
+    const apiUrl = `http://localhost:9000/artists/`+id;
+    const message = document.getElementById("messageUpdate");
+
+    if(!updateName.trim()){
+        message.innerHTML = "Por favor, ingrese un nombre";
+        return;
+    }else{
+        fetch(apiUrl, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({name: updateNameArt})
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.text(); 
+            } else {
+                throw new Error('Error al actualizar el nombre');
+            }
+        })
+        .then(text => {
+            if (!text) {
+            
+                alert('Fallo al actualizar el nombre. Ya existe');
+                return;
+            }
+            return JSON.parse(text); 
+        })
+        .then(data => {
+            if (data) {
+                alert('Artista actualizado correctamente');
+                window.location.href = 'getArtists.html';
+            }
+        })
+        .catch(error => {
+            console.log(error);
+            
+            alert('Error al actualizar el nombre');
+        });
+        
+    }
+
+    
 }

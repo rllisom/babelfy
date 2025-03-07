@@ -106,7 +106,7 @@ function saveSong() {
 
         const saveSong = {
             name: nameSong,
-            artistDTOList: selectedArtist,
+            artistDTOList: selectedArtists,
             duration: durationSong,
             id_category: idCategory,
             date: dateSong,
